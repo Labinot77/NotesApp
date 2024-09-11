@@ -85,6 +85,7 @@ const SettingsForm = ({ name, email, image, role}: Props) => {
           </FormItem>
         )}
       />
+      <p className='p-1 text-center'>{role}</p>
       <SubmitButton pending={isSubmitting} title='Save Changes' />
     </form>
   </Form>

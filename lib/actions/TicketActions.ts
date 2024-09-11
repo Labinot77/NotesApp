@@ -3,7 +3,6 @@
 
 import { auth } from "@/auth";
 import { db } from "@/db";
-import { redirect } from "next/navigation";
 import { TicketValidation } from "../validations/TicketValidations";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";

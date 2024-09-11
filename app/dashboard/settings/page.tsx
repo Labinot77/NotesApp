@@ -16,7 +16,7 @@ const page = async () => {
       <div className='w-full flex justify-end'>
     <   Logout />
       </div>
-     {/* @ts-ignore */}
+      {/* @ts-expect-error */}
       <SettingsForm {...data} />
     </main>
 

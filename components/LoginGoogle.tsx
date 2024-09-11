@@ -1,7 +1,6 @@
 "use client"
 
 import { login } from '@/acitons/auth'
-import React, { use } from 'react'
 import { FaGoogle } from 'react-icons/fa'
 
 const LoginGoogle = () => {
