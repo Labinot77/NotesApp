@@ -1,7 +1,5 @@
 
 import LoginForm from "@/components/LoginForm";
-import LoginGithub from "@/components/LoginGithub";
-import LoginGoogle from "@/components/LoginGoogle";
 import LoginWithOAuth from "@/components/LoginWithOAuth";
 import React from "react";
 

@@ -1,5 +1,5 @@
 import { auth } from '@/auth'
-import { EditUserNote, FindUserTickets } from '@/lib/actions/TicketActions'
+import { EditUserNote } from '@/lib/actions/TicketActions'
 import { redirect } from 'next/navigation'
 import React from 'react'
 

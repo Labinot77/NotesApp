@@ -16,6 +16,7 @@ const page = async () => {
       <div className='w-full flex justify-end'>
     <   Logout />
       </div>
+     {/* @ts-ignore */}
       <SettingsForm {...data} />
     </main>
 

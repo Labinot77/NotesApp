@@ -2,7 +2,6 @@ import { auth } from '@/auth'
 import Note from '@/components/Note'
 import { FindUserTickets } from '@/lib/actions/TicketActions'
 import { redirect } from 'next/navigation'
-import React from 'react'
 
 interface Props {
     title: string

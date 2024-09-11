@@ -8,7 +8,7 @@ import { z } from 'zod'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage, Form } from '../ui/form'
 import { Input } from '../ui/input'
 import { SubmitButton } from '../Buttons'
-import { getUserData, SaveUserData } from '@/lib/actions/UserActions'
+import { SaveUserData } from '@/lib/actions/UserActions'
 import { toast } from '@/hooks/use-toast'
 import Image from 'next/image'
 

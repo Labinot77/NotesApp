@@ -1,11 +1,9 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { toast } from "@/hooks/use-toast"
 import { deleteNote } from "@/lib/actions/TicketActions"
 import { ReloadIcon } from "@radix-ui/react-icons"
-import { Link, PencilLine, Trash } from "lucide-react"
-import { useFormStatus } from "react-dom"
+import { Trash } from "lucide-react"
 
 
 interface Props {
