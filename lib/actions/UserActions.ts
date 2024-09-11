@@ -36,7 +36,7 @@ export async function SaveUserData(values: z.infer<typeof UserSettings>) {
     data: {
       name: values.username,
       email: values.email,
-      // image: values. ?? undefined,
+      // image: values. ?? undefined, 
     }
   })
 

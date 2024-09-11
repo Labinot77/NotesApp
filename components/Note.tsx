@@ -1,13 +1,9 @@
 "use client"
 
-import React from 'react'
 import { TrashDelete } from './Buttons'
 import Link from 'next/link'
-import { PencilIcon, PencilLine } from 'lucide-react'
-import { useForm } from 'react-hook-form'
-import { useFormStatus } from 'react-dom'
+import { PencilLine } from 'lucide-react'
 import { Button } from './ui/button'
-import { deleteNote } from '@/lib/actions/TicketActions'
 
 interface Props {
   id: string

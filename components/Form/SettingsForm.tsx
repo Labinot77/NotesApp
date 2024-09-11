@@ -13,21 +13,19 @@ import { toast } from '@/hooks/use-toast'
 import Image from 'next/image'
 
 interface Props {
-    name?: string
-    email?: string
-    id: string
-    image?: string 
-    role?: string  
+    name: string
+    email: string
+    image: string 
+    role: string  
 }
 
 
-const SettingsForm = ({ name, email, id, image, role}: Props) => {
+const SettingsForm = ({ name, email, image, role}: Props) => {
   const form = useForm ({
     resolver: zodResolver(UserSettings),
     defaultValues: {
       username: name || "",
       email: email || "",
-      id: id || "",
     },
   })
 
@@ -57,7 +55,7 @@ const SettingsForm = ({ name, email, id, image, role}: Props) => {
       <Image className='mx-auto rounded-full border-dashed hover:border-2 border-gray-400 transition-all' src={image as string} alt="Profile Image" width={100} height={100} />
       </div>
     <form 
-    onSubmit={form.handleSubmit(onSubmit)} // Call the server action here onSubmit
+    onSubmit={form.handleSubmit(onSubmit)}
     className="flex flex-col gap-2">
       <FormField
         control={form.control}
@@ -81,20 +79,6 @@ const SettingsForm = ({ name, email, id, image, role}: Props) => {
             <FormLabel>Email</FormLabel>
             <FormControl>
               <Input disabled placeholder="email" 
-               type="text" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-        <FormField
-        control={form.control}
-        name="id"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>UserId</FormLabel>
-            <FormControl>
-              <Input disabled 
                type="text" {...field} />
             </FormControl>
             <FormMessage />

@@ -9,6 +9,5 @@ export const UserCreationValidation = z.object({
 
 export const UserSettings = z.object({
   username: z.string().min(2).max(15),
-  email: z.string().min(2).max(15),
-  id: z.string().min(2).max(15),
+  email: z.string().min(2).max(222),
 })
