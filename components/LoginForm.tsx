@@ -14,6 +14,7 @@ const LoginForm = () => {
   const form = useForm<z.infer<typeof UserCreationValidation>>({
     resolver: zodResolver(UserCreationValidation),
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
@@ -33,6 +34,20 @@ const LoginForm = () => {
     <form 
     onSubmit={form.handleSubmit(onSubmit)}
     className="flex p-3 flex-col gap-2">
+       <FormField
+        control={form.control}
+        name="name"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Name</FormLabel>
+            <FormControl>
+              <Input className="px-2" placeholder="Dave" 
+              type="text" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
       <FormField
         control={form.control}
         name="email"

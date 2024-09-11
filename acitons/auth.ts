@@ -33,6 +33,7 @@ export const logout = async () => {
 
 export const loginWithCreds = async (values: z.infer<typeof UserCreationValidation>) => {
   const rawFormData = {
+    name: values.name,
     email: values.email,
     password: values.password,
     role: "ADMIN",
@@ -40,8 +41,8 @@ export const loginWithCreds = async (values: z.infer<typeof UserCreationValidati
   };
 
   // Testing
-  // const existingUser = await getUserByEmail(values.email as string);
-  // console.log(existingUser);
+  const existingUser = await getUserByEmail(values.email as string);
+  console.log(existingUser);
 
   try {
     await signIn("credentials", rawFormData);

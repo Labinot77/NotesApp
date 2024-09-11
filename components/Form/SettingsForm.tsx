@@ -13,10 +13,10 @@ import { toast } from '@/hooks/use-toast'
 import Image from 'next/image'
 
 interface Props {
-    name: string
-    email: string
-    image: string 
-    role: string  
+    name?: string
+    email?: string
+    image?: string 
+    role?: string  
 }
 
 
@@ -52,7 +52,7 @@ const SettingsForm = ({ name, email, image, role}: Props) => {
   return (
     <Form {...form}>
       <div className='w-full'>
-      <Image className='mx-auto rounded-full border-dashed hover:border-2 border-gray-400 transition-all' src={image as string} alt="Profile Image" width={100} height={100} />
+      <Image className='mx-auto rounded-full border-dashed hover:border-2 border-gray-400 transition-all' src={image as string || ""} alt="Profile Image" width={100} height={100} />
       </div>
     <form 
     onSubmit={form.handleSubmit(onSubmit)}
@@ -85,7 +85,7 @@ const SettingsForm = ({ name, email, image, role}: Props) => {
           </FormItem>
         )}
       />
-      <p className='p-1 text-center'>{role}</p>
+      <p className='p-1 text-center'>Role: {role}</p>
       <SubmitButton pending={isSubmitting} title='Save Changes' />
     </form>
   </Form>
