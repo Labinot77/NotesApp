@@ -19,75 +19,50 @@ const LoginForm = () => {
     },
   });
 
+  const onSubmit = async (values: z.infer<typeof UserCreationValidation>) => {
+    try {
+    await loginWithCreds(values)
+    } catch (error) {
+      console.error("Login error:", error);
+    }
+  }
+
+
   return (
-  //   <Form {...form}>
-  //   <form 
-  //   // onSubmit={form.handleSubmit(loginWithCreds)} // Call the server action here onSubmit
-  //   className="flex flex-col gap-2">
-  //     <FormField
-  //       control={form.control}
-  //       name="email"
-  //       render={({ field }) => (
-  //         <FormItem>
-  //           <FormLabel>Username</FormLabel>
-  //           <FormControl>
-  //             <Input placeholder="Username" 
-  //             type="text" {...field} />
-  //           </FormControl>
-  //           <FormMessage />
-  //         </FormItem>
-  //       )}
-  //     />
-  //       <FormField
-  //       control={form.control}
-  //       name="password"
-  //       render={({ field }) => (
-  //         <FormItem>
-  //           <FormLabel>password</FormLabel>
-  //           <FormControl>
-  //             <Input placeholder="email" 
-  //              type="text" {...field} />
-  //           </FormControl>
-  //           <FormMessage />
-  //         </FormItem>
-  //       )}
-  //     />
-  //       <AuthButton />
-  //   </form>
-  // </Form>
-    <div>
-      <form 
-      action={loginWithCreds} 
-      className="w-full flex flex-col gap-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-200">
-            Email
-          </label>
-          <input
-            type="email"
-            placeholder="Email"
-            id="Email"
-            name="email"
-            className="mt-1 w-full px-4 p-2  h-10 rounded-md border border-gray-200 bg-white text-sm text-gray-700"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-200">
-            Password
-          </label>
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            id="password"
-            className="mt-1 w-full px-4 p-2  h-10 rounded-md border border-gray-200 bg-white text-sm text-gray-700"
-          />
-        </div>
-        <div className="mt-4">
-          <AuthButton />
-        </div>
-      </form>
-    </div>
+    <Form {...form}>
+    <form 
+    onSubmit={form.handleSubmit(onSubmit)}
+    className="flex p-3 flex-col gap-2">
+      <FormField
+        control={form.control}
+        name="email"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Email</FormLabel>
+            <FormControl>
+              <Input className="px-2" placeholder="example@email.com" 
+              type="text" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+        <FormField
+        control={form.control}
+        name="password"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Password</FormLabel>
+            <FormControl>
+              <Input className="px-2" type="password" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+        <AuthButton />
+    </form>
+  </Form>
   );
 };
 

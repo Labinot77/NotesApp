@@ -10,15 +10,10 @@ import { revalidatePath } from "next/cache";
 
 
 export async function CreateTicketData(values: z.infer<typeof TicketValidation>) {
-  
   const session = await auth();
   if (!session?.user?.id) {
     throw new Error("Not authorized");
   }
-
-  // const title = formData.get("title") as string;
-  // const content = formData.get("content") as string;
-
 
   await db.note.create({
     data: {

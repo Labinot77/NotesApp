@@ -2,8 +2,10 @@
 
 import { signIn, signOut } from "@/auth";
 import { db } from "@/db";
+import { UserCreationValidation } from "@/lib/validations/UserValidation";
 import { AuthError } from "next-auth";
 import { revalidatePath } from "next/cache";
+import { z } from "zod";
 
 const getUserByEmail = async (email: string) => {
   try {
@@ -29,16 +31,17 @@ export const logout = async () => {
   revalidatePath("/");
 };
 
-export const loginWithCreds = async (formData: FormData) => {
+export const loginWithCreds = async (values: z.infer<typeof UserCreationValidation>) => {
   const rawFormData = {
-    email: formData.get("email"),
-    password: formData.get("password"),
+    email: values.email,
+    password: values.password,
     role: "ADMIN",
     redirectTo: "/",
   };
 
-  const existingUser = await getUserByEmail(formData.get("email") as string);
-  console.log(existingUser);
+  // Testing
+  // const existingUser = await getUserByEmail(values.email as string);
+  // console.log(existingUser);
 
   try {
     await signIn("credentials", rawFormData);

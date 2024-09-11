@@ -29,11 +29,6 @@ export async function SaveUserData(values: z.infer<typeof UserSettings>) {
     throw new Error("Not authorized");
   }
 
-
-  // const name = formData.get('name') as string
-  // const email = formData.get('email') as string
-  // const image = formData.get('image') as string
-
   await db.user.update({
     where: {
       id: session.user?.id
