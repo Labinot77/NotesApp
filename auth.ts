@@ -5,6 +5,7 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "next-auth/providers/credentials";
 import { db } from "./db";
 import { PrismaClient } from "@prisma/client";
+import { saltAndHashPassword } from "./lib/PasswordHash";
 
 export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(db as PrismaClient),
@@ -49,7 +50,7 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
       }
       
       const email = credentials.email as string;
-      const password = credentials.password as string;
+      const hashedPassword = saltAndHashPassword(credentials.password);
 
       let user = await db.user.findUnique({
         where: {
@@ -61,15 +62,15 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
         user = await db.user.create({
           data: {
             email,
-            password: password,
+            password: hashedPassword,
           },
         });
       } else {
-        if (user.password !== password) {
+        if (user.password !== hashedPassword) {
           return null;
         }
       }
-      
+
       return user;
     },
   }),
