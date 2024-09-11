@@ -1,0 +1,109 @@
+"use client"
+
+import { UserSettings } from '@/lib/validations/UserValidation'
+import { zodResolver } from '@hookform/resolvers/zod'
+import React from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage, Form } from '../ui/form'
+import { Input } from '../ui/input'
+import { SubmitButton } from '../Buttons'
+import { getUserData, SaveUserData } from '@/lib/actions/UserActions'
+import { toast } from '@/hooks/use-toast'
+
+interface Props {
+    name?: string
+    email?: string
+    id: string
+    image?: string 
+    role?: string  
+}
+
+
+const SettingsForm = ({ name, email, id, image, role}: Props) => {
+  const form = useForm ({
+    // resolver: zodResolver(UserSettings),
+    // defaultValues: {
+    //   username: name || "",
+    //   email: email || "",
+    //   id: id || "",
+    // },
+  })
+
+  const { isSubmitting } = form.formState
+
+  async function onSubmit(values: z.infer<typeof UserSettings>) {
+    try {
+      await SaveUserData(values)
+
+      toast({
+        title: "Settings Updated",
+        description: "Your information has been updated successfully!",
+      })
+
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "There was a problem updating your information.",
+      })
+    }
+  }
+
+
+  return (
+    <Form {...form}>
+    <form 
+    onSubmit={form.handleSubmit(onSubmit)} // Call the server action here onSubmit
+    className="flex flex-col gap-2">
+      <FormField
+        control={form.control}
+        name="username"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Username</FormLabel>
+            <FormControl>
+              <Input placeholder="Username" 
+              defaultValue={name}
+              type="text" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+        <FormField
+        control={form.control}
+        name="email"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Email</FormLabel>
+            <FormControl>
+              <Input disabled placeholder="email" 
+              defaultValue={email}
+               type="text" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+        <FormField
+        control={form.control}
+        name="id"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>UserId</FormLabel>
+            <FormControl>
+              <Input disabled placeholder="Username" 
+              defaultValue={id}
+               type="text" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <SubmitButton pending={isSubmitting} title='Save Changes' />
+    </form>
+  </Form>
+  )
+}
+
+export default SettingsForm

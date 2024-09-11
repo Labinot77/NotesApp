@@ -1,0 +1,49 @@
+"use server"
+
+import { auth } from "@/auth";
+import { db } from "@/db"
+import { revalidatePath } from "next/cache";
+import { z } from "zod";
+import { UserSettings } from "../validations/UserValidation";
+
+export async function getUserData(userId: string) {
+  const data = await db.user.findUnique({
+    where: {
+      id: userId
+    },
+    select: {
+      name: true,
+      email: true,
+      image: true,
+      role: true
+    },
+  })
+
+  return data
+}
+
+export async function SaveUserData(values: z.infer<typeof UserSettings>) {
+  const session = await auth();
+
+  if (!session?.user?.id) {
+    throw new Error("Not authorized");
+  }
+
+
+  // const name = formData.get('name') as string
+  // const email = formData.get('email') as string
+  // const image = formData.get('image') as string
+
+  await db.user.update({
+    where: {
+      id: session.user?.id
+    },
+    data: {
+      name: values.username,
+      email: values.email,
+      // image: values. ?? undefined,
+    }
+  })
+
+  revalidatePath('/dashboard/settings') 
+}
