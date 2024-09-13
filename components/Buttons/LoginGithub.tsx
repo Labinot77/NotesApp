@@ -8,8 +8,7 @@ const LoginGithub = () => {
   return (
     <div
       onClick={() => login("github")}
-      className="w-full gap-4 hover:cursor-pointer h-12 bg-black rounded-md p-4 flex justify-center items-center"
-    >
+      className="w-full gap-4 hover:cursor-pointer h-12 bg-black rounded-md p-4 flex justify-center items-center">
       <FaGithub size={25} className="text-white" />
     </div>
   );

@@ -1,14 +1,14 @@
 "use client";
 
 import React from "react";
-import AuthButton from "./AuthButton";
+import AuthButton from "../Buttons/AuthButton";
 import { loginWithCreds } from "@/acitons/auth";
 import { useForm } from "react-hook-form";
 import { UserCreationValidation } from "@/lib/validations/UserValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "./ui/form";
-import { Input } from "./ui/input";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Input } from "../ui/input";
 
 const LoginForm = () => {
   const form = useForm<z.infer<typeof UserCreationValidation>>({

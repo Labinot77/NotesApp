@@ -1,7 +1,6 @@
+import LoginWithOAuth from "@/components/Buttons/LoginWithOAuth";
+import LoginForm from "@/components/Form/LoginForm";
 
-import LoginForm from "@/components/LoginForm";
-import LoginWithOAuth from "@/components/LoginWithOAuth";
-import React from "react";
 
 const SignIn = () => {
   return (

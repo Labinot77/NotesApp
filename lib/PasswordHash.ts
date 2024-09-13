@@ -6,3 +6,4 @@ export function saltAndHashPassword(password: any) {
   const hash = bcrypt.hashSync(password, salt); // Synchronously hash the password
   return hash; // Return the hash directly as a string
 }
+

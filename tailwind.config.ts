@@ -40,6 +40,9 @@ const config: Config = {
   				DEFAULT: 'hsl(var(--destructive))',
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
+				boxShadow: {
+					'glow': '0 0 15px 5px rgba(255, 255, 0, 0.8)'
+				},
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',

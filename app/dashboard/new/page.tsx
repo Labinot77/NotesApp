@@ -13,11 +13,11 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { TicketValidation } from "@/lib/validations/TicketValidations"
-import { SubmitButton } from "@/components/Buttons"
 import { CreateTicketData } from "@/lib/actions/TicketActions" // Import the server action
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
+import { SubmitButton } from "@/components/Buttons/Buttons"
 
 export function TicketCreationPage() { 
   const router = useRouter();
@@ -25,7 +25,7 @@ export function TicketCreationPage() {
     resolver: zodResolver(TicketValidation),
     defaultValues: {
       title: "",
-      content: "", 
+      content: "",
     },
   })
   
@@ -48,8 +48,6 @@ export function TicketCreationPage() {
       })
     }
   }
-
-
   
   return (
     <Form {...form}>
@@ -76,7 +74,7 @@ export function TicketCreationPage() {
             <FormItem>
               <FormLabel>Description</FormLabel>
               <FormControl>
-                <Textarea className="resize-none" placeholder="Enter description" {...field} />
+                <Textarea className="resize-none h-44" placeholder="Enter description" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
