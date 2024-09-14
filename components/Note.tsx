@@ -12,17 +12,23 @@ interface Props {
   id: string
   title: string
   content: string
+  color: string
   createdAt: Date
 }
 
-const Note = ({ id, title, content, createdAt }: Props) => {
-  const [isEditing, setIsEditing] = useState(false)
+const Note = ({ id, title, content, color, createdAt }: Props) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded)
+  }
+
 
   return (
-    <main key={id} className="p-1 w-full rounded-md bg-gray-800/50 flex justify-between shadow-xl">
+    <main key={id} className="p-1 w-full rounded-md bg-gray-800/50 flex justify-between shadow-2xl">
       <div className='w-full'>
-          <h2 className='bg-yellow-600 text-base rounded-md p-1'>{title}</h2>
-          <p className='text-sm w-full p-2 max-h-48 overflow-hidden'>{content}</p>
+          <h2 className="text-base rounded-md p-1" style={{backgroundColor: color}}>{title}</h2>
+          <p className={`note-text ${isExpanded ? "expanded" : ""}`} onClick={toggleExpand}>{content}</p>
           <div className='w-full h-[2px] bg-gray-700/50 rounded-full'/>
           <div className='flex justify-between items-center mt-1'>
         <small className="px-2 ">
@@ -30,7 +36,7 @@ const Note = ({ id, title, content, createdAt }: Props) => {
           weekday: 'long',
           day: 'numeric',
           month: 'long',
-        }).replace("", '')}
+        })}
         </small>
         <Dots NoteId={id} />
         </div>

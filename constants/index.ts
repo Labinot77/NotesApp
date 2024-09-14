@@ -19,9 +19,19 @@ export const FooterLinks = [
 ]
 
 export const TitleColors = [
-  'bg-green-600',
-  'bg-yellow-600',
-  'bg-red-600',
-  'bg-purple-600',
-  'bg-pink-600',
-]
+  '#FF5733',  // Bright Red
+  '#33FF57',  // Bright Green
+  '#3357FF',  // Bright Blue
+  '#FF33A1',  // Bright Pink
+  '#33FFF3',  // Bright Cyan
+  '#FFBD33',  // Bright Orange
+  '#FF33F6',  // Bright Magenta
+  '#85FF33',  // Lime Green
+  '#FF8C33',  // Dark Orange
+  '#333CFF',  // Strong Blue
+  '#33FF96',  // Mint Green
+  '#9933FF',  // Violet
+  '#33FFCC',  // Aqua
+  '#FF3380',  // Hot Pink
+  '#33D4FF',  // Sky Blue
+];

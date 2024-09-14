@@ -18,6 +18,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
 import { SubmitButton } from "@/components/Buttons/Buttons"
+import { TitleColors } from "@/constants"
 
 export function TicketCreationPage() { 
   const router = useRouter();
@@ -26,6 +27,7 @@ export function TicketCreationPage() {
     defaultValues: {
       title: "",
       content: "",
+      color: ""
     },
   })
   
@@ -33,6 +35,9 @@ export function TicketCreationPage() {
 
   async function onSubmit(values: z.infer<typeof TicketValidation>) {
     try {
+      const randomColor = TitleColors[Math.floor(Math.random() * TitleColors.length)]
+      values.color = randomColor
+      
       await CreateTicketData(values)
 
       toast({

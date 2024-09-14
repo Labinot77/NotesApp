@@ -37,7 +37,7 @@ model Note {
   userId    String   @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  // noteData  NoteData?
+  color     String   @default("bg-yellow-600")
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

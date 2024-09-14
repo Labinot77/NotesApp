@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation'
 interface Props {
     title: string
     content: string
+    color: string
     id: string
     createdAt: Date
 }

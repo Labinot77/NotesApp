@@ -22,7 +22,18 @@ body {
   scrollbar-width: none; 
 }
 
+.note-text {
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: small;
+  max-height: 4rem; /* Adjust this height as needed */
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
 
+.note-text.expanded {
+  max-height: none;
+}
 
 @layer base {
   :root {

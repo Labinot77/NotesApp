@@ -10,18 +10,18 @@ import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const form = useForm<z.infer<typeof UserCreationValidation>>({
     resolver: zodResolver(UserCreationValidation),
     defaultValues: {
-      // name: "",
+      name: "",
       email: "",
       password: "",
     },
   });
 
   // Make a sign in and sign up form to reduce errors.
-
+  
   const onSubmit = async (values: z.infer<typeof UserCreationValidation>) => {
     try {
     await loginWithCreds(values)
@@ -36,7 +36,7 @@ const LoginForm = () => {
     <form 
     onSubmit={form.handleSubmit(onSubmit)}
     className="flex p-3 flex-col gap-2">
-       {/* <FormField
+       <FormField
         control={form.control}
         name="name"
         render={({ field }) => (
@@ -49,7 +49,7 @@ const LoginForm = () => {
             <FormMessage />
           </FormItem>
         )}
-      /> */}
+      />
       <FormField
         control={form.control}
         name="email"
@@ -77,10 +77,10 @@ const LoginForm = () => {
           </FormItem>
         )}
       />
-        <AuthButton label="Sign In" />
+        <AuthButton label="Sign Up" />
     </form>
   </Form>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

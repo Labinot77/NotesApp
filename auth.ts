@@ -10,6 +10,9 @@ import { saltAndHashPassword } from "./lib/PasswordHash";
 export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(db as PrismaClient),
   session: {strategy: "jwt"},
+  pages: {
+    signIn: "/authentication/sign-in",
+  },
   callbacks: {
     jwt({ token, user }) {
       if (user) {
