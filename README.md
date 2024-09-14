@@ -3,6 +3,6 @@ This is my first project that I have made with the help of NextJS 14, Typescript
 
 ---------------
 TODO:
-1.Fix authentication (register and login) logic.
-2.Fix UI on notes: expansion
-3.A way to change PFP
+1.Fix authentication (register and login) logic. <br/>
+2.Fix UI on notes: expansion <br/>
+3.A way to change PFP <br/>
