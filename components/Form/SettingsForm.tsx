@@ -29,6 +29,7 @@ const SettingsForm = ({ name, email, image, role}: Props) => {
     },
   })
 
+  // Make it so the user can change the picture.
   const { isSubmitting } = form.formState
 
   async function onSubmit(values: z.infer<typeof UserSettings>) {

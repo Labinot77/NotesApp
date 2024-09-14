@@ -19,8 +19,10 @@ export async function CreateTicketData(values: z.infer<typeof TicketValidation>)
       userId: session.user?.id,
       title: values.title,
       content: values.content,
-    },
-    
+      // noteData: {
+      //   noteColor: "",
+      // },
+    }
   });
   return revalidatePath("/dashboard");
 }
@@ -41,6 +43,7 @@ export async function FindUserTickets(userId: string) {
           title: true,
           content: true,
           id: true,
+          // noteData: true,
           createdAt: true,
         },
         orderBy: {

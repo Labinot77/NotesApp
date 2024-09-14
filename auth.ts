@@ -29,15 +29,18 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
     }),
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SERCRET,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     Credentials({
     name: "Credentials",
     credentials: {
+      name: {
+        label: "name",
+        type: "name",
+      },
       email: {
         label: "Email",
         type: "email",
-        placeholder: "example@email.com",
       },
       password: {
         label: "Password",
@@ -45,10 +48,11 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
       },
     },
     authorize: async (credentials) => {
-      if (!credentials.email || !credentials.password) {
+      if (!credentials.name || !credentials.email || !credentials.password) {
         return null;
       }
-      
+
+      const name = credentials.name as string;
       const email = credentials.email as string;
       const hashedPassword = saltAndHashPassword(credentials.password);
 
@@ -61,11 +65,13 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
       if (!user) {
         user = await db.user.create({
           data: {
+            name,
             email,
             password: hashedPassword,
           },
         });
       } else {
+        
         if (user.password !== hashedPassword) {
           return null;
         }

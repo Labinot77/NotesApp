@@ -14,9 +14,10 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { redirect } from 'next/navigation'
 
 
-const Dots = () => {
+const Dots = ({ NoteId }: { NoteId: string }) => {
   return (
     <DropdownMenu>
     <DropdownMenuTrigger asChild>
@@ -24,14 +25,8 @@ const Dots = () => {
     </DropdownMenuTrigger>
     <DropdownMenuContent className="w-56">
       <DropdownMenuGroup>
-        <DropdownMenuItem>
-          <span>Edit</span>
           <DropdownMenuShortcut><Pencil/></DropdownMenuShortcut>
-        </DropdownMenuItem>
-        <DropdownMenuItem>
-          <span>Delete</span>
           <DropdownMenuShortcut><Trash/></DropdownMenuShortcut>
-        </DropdownMenuItem>
       </DropdownMenuGroup>
       <DropdownMenuSeparator/>
     </DropdownMenuContent>

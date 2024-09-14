@@ -15,10 +15,10 @@ enum UserRole {
 model User {
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
   name          String?
-  email         String?         @unique
+  email         String         @unique
   password      String?
   emailVerified DateTime?
-  image         String?
+  image         String         @default("https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg")
   accounts      Account[]
   sessions      Session[]
   role          UserRole?       @default(USER)
@@ -37,9 +37,14 @@ model Note {
   userId    String   @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  // noteData  NoteData?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
+
+// type NoteData {
+//   noteColor   String
+// }
 
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId

@@ -20,6 +20,9 @@ const LoginForm = () => {
     },
   });
 
+  // Make a sign in and sign up form to reduce errors.
+  // Fix Google Auth
+  
   const onSubmit = async (values: z.infer<typeof UserCreationValidation>) => {
     try {
     await loginWithCreds(values)

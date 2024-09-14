@@ -32,7 +32,7 @@ const Note = ({ id, title, content, createdAt }: Props) => {
           month: 'long',
         }).replace("", '')}
         </small>
-        <Dots />
+        <Dots NoteId={id} />
         </div>
       </div>
 
