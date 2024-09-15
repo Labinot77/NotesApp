@@ -32,7 +32,7 @@ export default async function Home() {
           </div>
          ) : ( 
           <div className="flex justify-center max-w-sm mx-auto mt-10">
-          <Link href='/authentication/sign-in'>
+          <Link href='/authentication/sign-up'>
           <Button size="lg" className="w-full z-10 ">Sign up for free</Button>
           </Link>
         </div>

@@ -58,5 +58,4 @@ export const loginWithCreds = async (values: z.infer<typeof UserCreationValidati
 
     throw error;
   }
-  revalidatePath("/");
 };

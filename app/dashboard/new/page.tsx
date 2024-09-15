@@ -19,9 +19,12 @@ import { toast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
 import { SubmitButton } from "@/components/Buttons/Buttons"
 import { TitleColors } from "@/constants"
+import Uploader from "@/components/Upload"
+import { useState } from "react"
 
 export function TicketCreationPage() { 
   const router = useRouter();
+  const [uploadedImageUrl, setUploadedImageUrl] = useState("");
   const form = useForm<z.infer<typeof TicketValidation>>({
     resolver: zodResolver(TicketValidation),
     defaultValues: {
@@ -38,7 +41,12 @@ export function TicketCreationPage() {
       const randomColor = TitleColors[Math.floor(Math.random() * TitleColors.length)]
       values.color = randomColor
       
-      await CreateTicketData(values)
+      const ticketData = {
+        ...values,
+        image: uploadedImageUrl
+      }
+
+      await CreateTicketData(ticketData)
 
       toast({
         title: "Note created",
@@ -85,6 +93,7 @@ export function TicketCreationPage() {
             </FormItem>
           )}
         />
+        <Uploader onUploadCompleted={setUploadedImageUrl} />
         <SubmitButton title="Create Note" pending={isSubmitting}/>
       </form>
     </Form>

@@ -6,6 +6,7 @@ import { redirect } from 'next/navigation'
 interface Props {
     title: string
     content: string
+    image: string | null
     color: string
     id: string
     createdAt: Date
@@ -17,7 +18,6 @@ const page = async () => {
   if (!session?.user) { redirect("/api/sign-in?callbackUrl=/dashboard")}
 
    const data = await FindUserTickets(session.user.id as string)
-
   return (
     <main className='p-2 max-h-[41rem] flex flex-col gap-4 items-center justify-start relative'>
         {data?.Notes?.length ? (

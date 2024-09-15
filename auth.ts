@@ -59,6 +59,7 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
       const email = credentials.email as string;
       const hashedPassword = saltAndHashPassword(credentials.password);
 
+
       let user = await db.user.findUnique({
         where: {
           email,
