@@ -19,19 +19,44 @@ export const FooterLinks = [
 ]
 
 export const TitleColors = [
-  '#FF5733',  // Bright Red
-  '#33FF57',  // Bright Green
-  '#3357FF',  // Bright Blue
-  '#FF33A1',  // Bright Pink
-  '#33FFF3',  // Bright Cyan
-  '#FFBD33',  // Bright Orange
-  '#FF33F6',  // Bright Magenta
-  '#85FF33',  // Lime Green
-  '#FF8C33',  // Dark Orange
-  '#333CFF',  // Strong Blue
-  '#33FF96',  // Mint Green
-  '#9933FF',  // Violet
-  '#33FFCC',  // Aqua
-  '#FF3380',  // Hot Pink
-  '#33D4FF',  // Sky Blue
+  {
+    color: getTextColor('#FF5733'), // Dynamically set text color based on background color brightness
+    backgroundColor: '#FF5733',
+  },
+  {
+    color: getTextColor('#33FF57'),
+    backgroundColor: '#33FF57',
+  },
+  {
+    color: getTextColor('#5733FF'),
+    backgroundColor: '#5733FF',
+  },
+  {
+    color: getTextColor('#FFD700'),
+    backgroundColor: '#FFD700',
+  },
+  {
+    color: getTextColor('#00FFFF'),
+    backgroundColor: '#00FFFF',
+  },
 ];
+
+// CHAT GPT STUFF
+function getTextColor(backgroundColor: string) {
+  const rgb = hexToRgb(backgroundColor);
+  const brightness = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000;
+  
+  // Return dark color for bright backgrounds and light color for dark backgrounds
+  return brightness > 150 ? '#000000' : '#FFFFFF';
+}
+
+function hexToRgb(hex: string) {
+  // Remove the hash (#) if it exists
+  const cleanHex = hex.replace('#', '');
+  const bigint = parseInt(cleanHex, 16);
+  const r = (bigint >> 16) & 255;
+  const g = (bigint >> 8) & 255;
+  const b = bigint & 255;
+
+  return { r, g, b };
+}

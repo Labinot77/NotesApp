@@ -3,12 +3,13 @@
 
 import { auth } from "@/auth";
 import { db } from "@/db";
-import { TicketValidation } from "../validations/TicketValidations";
+import { TickerEditValidation, TicketCreationValidation } from "../validations/TicketValidations";
 import { z } from "zod";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 
-export async function CreateTicketData(values: z.infer<typeof TicketValidation>) {
+export async function CreateTicketData(values: z.infer<typeof TicketCreationValidation>) {
   const session = await auth();
   if (!session?.user?.id) {
     throw new Error("Not authorized");
@@ -20,6 +21,7 @@ export async function CreateTicketData(values: z.infer<typeof TicketValidation>)
       title: values.title,
       content: values.content,
       color: values.color,
+      background: values.background,
       image: values.image,
       // noteData: {
       //   noteColor: "",
@@ -47,6 +49,7 @@ export async function FindUserTickets(userId: string) {
           image: true,
           id: true,
           color: true,
+          background: true,
           createdAt: true,
         },
         orderBy: {
@@ -72,12 +75,33 @@ export async function EditUserNote(NoteId: string) {
     select: {
           title: true,
           content: true,
+          image: true,
           id: true,
           createdAt: true,
     },
   });
 
   return data;
+}
+
+export async function SaveEditedNote(values: z.infer<typeof TickerEditValidation>) {
+  const session = await auth();
+  if (!session?.user?.id) {
+    throw new Error("Not authorized");
+  }
+
+  await db.note.update({
+    where: {
+      id: values.id
+    },
+    data: {
+      title: values.title,
+      content: values.content,
+      image: values.image,
+    },
+  });
+
+  return redirect("/dashboard");
 }
 
 export const deleteNote = async (id: string) => {
@@ -87,5 +111,5 @@ export const deleteNote = async (id: string) => {
     },
   })
 
-  revalidatePath("/dashboard")
+  redirect("/dashboard")
 }

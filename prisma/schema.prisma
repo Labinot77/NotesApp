@@ -14,7 +14,7 @@ enum UserRole {
 
 model User {
   id            String          @id @default(auto()) @map("_id") @db.ObjectId
-  name          String?
+  name          String
   email         String         @unique
   password      String?
   emailVerified DateTime?
@@ -37,7 +37,8 @@ model Note {
   userId    String   @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  color     String   @default("bg-yellow-600")
+  color     String   @default("#FF5733") 
+  background String  @default("#32DD88")
   image     String?
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

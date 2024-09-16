@@ -12,8 +12,8 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import { TicketValidation } from "@/lib/validations/TicketValidations"
-import { CreateTicketData } from "@/lib/actions/TicketActions" // Import the server action
+import { TicketCreationValidation } from "@/lib/validations/TicketValidations"
+import { CreateTicketData } from "@/lib/actions/TicketActions"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "@/hooks/use-toast"
 import { useRouter } from "next/navigation"
@@ -21,31 +21,35 @@ import { SubmitButton } from "@/components/Buttons/Buttons"
 import { TitleColors } from "@/constants"
 import Uploader from "@/components/Upload"
 import { useState } from "react"
+import { capitalizeLetter } from "@/lib/Miscellaneous"
 
 export function TicketCreationPage() { 
   const router = useRouter();
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
-  const form = useForm<z.infer<typeof TicketValidation>>({
-    resolver: zodResolver(TicketValidation),
+  const form = useForm<z.infer<typeof TicketCreationValidation>>({
+    resolver: zodResolver(TicketCreationValidation),
     defaultValues: {
       title: "",
       content: "",
-      color: ""
+      color: "",
+      background: "",
     },
   })
   
   const { isSubmitting } = form.formState
 
-  async function onSubmit(values: z.infer<typeof TicketValidation>) {
+  async function onSubmit(values: z.infer<typeof TicketCreationValidation>) {
     try {
-      const randomColor = TitleColors[Math.floor(Math.random() * TitleColors.length)]
-      values.color = randomColor
+      const {color, backgroundColor} = TitleColors[Math.floor(Math.random() * TitleColors.length)]
+      values.color = color
+      values.background = backgroundColor
+      values.content = capitalizeLetter(values.content)
+      values.title = capitalizeLetter(values.title)
       
       const ticketData = {
         ...values,
         image: uploadedImageUrl
       }
-
       await CreateTicketData(ticketData)
 
       toast({
@@ -93,9 +97,9 @@ export function TicketCreationPage() {
             </FormItem>
           )}
         />
-        <Uploader onUploadCompleted={setUploadedImageUrl} />
         <SubmitButton title="Create Note" pending={isSubmitting}/>
       </form>
+        <Uploader onUploadCompleted={setUploadedImageUrl} />
     </Form>
   )
 }

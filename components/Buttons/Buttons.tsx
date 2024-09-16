@@ -3,7 +3,8 @@
 import { Button } from "@/components/ui/button"
 import { deleteNote } from "@/lib/actions/TicketActions"
 import { ReloadIcon } from "@radix-ui/react-icons"
-import { Trash } from "lucide-react"
+import { PenLine, Trash } from "lucide-react"
+import Link from "next/link"
 
 
 interface Props {
@@ -13,6 +14,21 @@ interface Props {
 
 
 export const SubmitButton = ({ title, pending }: Props ) => {
+  return (
+    <>  
+    {pending ? (
+          <Button disabled>
+          <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+          Saving
+        </Button>
+    ): (
+      <Button type="submit">{title}</Button>
+    )}
+    </>
+  )
+}
+
+export const EditButton = ({ title, pending, id }: { title: string; pending: boolean; id: string }) => {
   // const {pending} = useFormStatus()
   return (
     <>  
@@ -22,9 +38,12 @@ export const SubmitButton = ({ title, pending }: Props ) => {
           Saving
         </Button>
     ): (
-      <Button type="submit" onClick={() => {
-      }}>{title}</Button>
-    )}
+      <Link href={`/dashboard/new/${id}`}>
+        <Button>
+         <PenLine size={15}/>
+        </Button>
+        </Link>
+      )}
     </>
   )
 }
@@ -46,3 +65,4 @@ export const TrashDelete = ({noteId, pending}: {noteId: string, pending?: boolea
     </>
   );
 }
+

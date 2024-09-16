@@ -15,12 +15,12 @@ import Image from 'next/image'
 interface Props {
     name: string
     email: string
-    image?: string 
-    role: string  
+    image: string 
+    role: string 
 }
 
 
-const SettingsForm = ({ name, email, image, role}: Props) => {
+const SettingsForm = ({ name, email, image, role }: Props) => {
   const form = useForm ({
     resolver: zodResolver(UserSettings),
     defaultValues: {

@@ -8,6 +8,7 @@ interface Props {
     content: string
     image: string | null
     color: string
+    background: string
     id: string
     createdAt: Date
 }
