@@ -28,11 +28,11 @@ body {
   font-size: small;
   max-height: 4rem; /* Adjust this height as needed */
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: all 3.3s ease-in-out;
 }
 
 .note-text.expanded {
-  max-height: none;
+  max-height: fit-content;
 }
 
 @layer base {

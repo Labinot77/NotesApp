@@ -16,7 +16,7 @@ interface Props {
 
 const Note = ({ id, title, content, color, background, image, createdAt }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isZoomed, setIsZoomed] = useState(false);
+  // const [isZoomed, setIsZoomed] = useState(false);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded)
