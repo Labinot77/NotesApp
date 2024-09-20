@@ -66,3 +66,10 @@ export const TrashDelete = ({noteId, pending}: {noteId: string, pending?: boolea
   );
 }
 
+export const RemoveImageButton = ({ event, classes }: { classes?: string, event: () => void }) => {
+  return (
+        <Button className={`${classes}`} variant={"destructive"} size="icon" type="submit" onClick={event}>
+          <Trash className="h-4 w-4" />
+        </Button>
+  );
+};

@@ -22,6 +22,9 @@ import { useRouter } from 'next/navigation'
 import { SaveEditedNote } from '@/lib/actions/TicketActions'
 import { Textarea } from '../ui/textarea'
 import { Separator } from '../ui/separator'
+import Uploader from '../Upload'
+import { useState } from 'react'
+import { UploadButton } from '@/utils/uploadthing'
 
 interface Props {
   id: string
@@ -31,6 +34,7 @@ interface Props {
 }
 
 const EditForm = ({ id, content, title, image }: Props) => {
+  const [uploadedImageUrl, setUploadedImageUrl] = useState(image as string);
   const form = useForm<z.infer<typeof TickerEditValidation>>({
     resolver: zodResolver(TickerEditValidation),
     defaultValues: {
@@ -41,6 +45,8 @@ const EditForm = ({ id, content, title, image }: Props) => {
   const { isSubmitting } = form.formState
 
   async function onSubmit(values: z.infer<typeof TickerEditValidation>) {
+    values.image = uploadedImageUrl
+
     try {
       const formData = {
         ...values,
@@ -64,18 +70,22 @@ const EditForm = ({ id, content, title, image }: Props) => {
 
   return (
     <Form {...form}>
-    <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col justify-center items-center">
-      {image ? (
-        <>
-      <Image 
-      src={image as string} 
-      alt="Note Image" 
-      className="object-cover max-h-36 rounded-md transition-opacity duration-200 opacity-0 p-1"
-      onLoadingComplete={(image) => image.classList.remove("opacity-0")} 
-      width={400} height={50} />
-      <Separator />
-        </>
-      ) : null }
+    <form onSubmit={form.handleSubmit(onSubmit)} className="px-16 flex flex-col justify-center items-center">
+      <div className={`h-[20vh] mb-2 relative bg-neutral-300 w-full rounded-md group`}> 
+        {uploadedImageUrl && (
+          <Image 
+          src={uploadedImageUrl} 
+          alt="Note Image" 
+          className="object-cover rounded-md transition-opacity duration-200"
+          onLoadingComplete={(image) => image.classList.remove("opacity-0")} 
+          fill />
+        )}
+          <UploadButton onClientUploadComplete={(res) => { 
+            setUploadedImageUrl(res[0].url) 
+            }}
+             endpoint='imageUploader' 
+             className='absolute bottom-5 right-5 w-fit ut-allowed-content:hidden ut-button:bg-slate-200 ut-button:hover:bg-slate-300 ut-button:text-neutral-800 ut-button:transition-colors opacity-0 group-hover:opacity-100 duration-500 ut-button:w-[7rem] ut-button:h-[2rem] ut-button:text-sm' />
+        </div>
       <FormField
         control={form.control}
         name="title"

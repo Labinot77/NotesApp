@@ -19,7 +19,7 @@ const page = async () => {
 
    const data = await FindUserTickets(session.user.id as string)
   return (
-    <main className='p-2 max-h-[41rem] flex flex-col gap-4 items-center justify-start relative'>
+    <main className='p-2 grid grid-cols-1 lg:grid-cols-2 auto-rows-auto gap-4 items-center justify-start'>
         {data?.Notes?.length ? (
           data.Notes.map((note: Props) => (
             <Note key={note.id} {...note} />

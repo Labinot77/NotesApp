@@ -5,8 +5,8 @@ import { ReactNode } from "react"
 
 const DashBoardLayout = async ({ children}: { children: ReactNode}) => {
   return (
-    <div className="flex flex-col p-12 h-screen">
-      <main className="shadow-glow overflow-hidden relative max-w-[28rem] mx-auto w-full h-full border-2 border-gray-200 rounded-3xl flex flex-col justify-between bg-gradient-to-b from-blue-700/50 via-purple-700/40 to-purple-800/20">
+    <div className="flex flex-col h-screen justify-center items-center">
+      <main className="overflow-hidden relative max-w-6xl p-2 mx-auto w-full h-full flex flex-col justify-between">
       <Navbar />
       <div className="p-2 overflow-y-auto scrollbar-hidden h-full mb-1">
         {children}

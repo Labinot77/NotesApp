@@ -26,10 +26,6 @@ export const login = async (provider: string) => {
   revalidatePath("/dashboard");
 };
 
-export const logout = async () => {
-  await signOut({ redirectTo: "/" });
-  revalidatePath("/");
-};
 
 export const loginWithCreds = async (values: z.infer<typeof UserCreationValidation>) => {
   const rawFormData = {

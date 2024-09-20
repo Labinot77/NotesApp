@@ -6,6 +6,16 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { UserSettings } from "../validations/UserValidation";
 
+export async function getUserEmail(email: string) {
+  const user = await db.user.findUnique({
+    where: {
+      email
+    },
+  })
+
+  return user
+}
+
 export async function getUserData(userId: string) {
   const data = await db.user.findUnique({
     where: {

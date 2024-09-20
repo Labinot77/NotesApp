@@ -1,6 +1,6 @@
 "use client";
 
-import { logout } from "@/acitons/auth";
+import { logout } from "@/acitons/logout";
 import { Button } from "./ui/button";
 
 const Logout = () => {

@@ -11,6 +11,7 @@ import { SubmitButton } from '../Buttons/Buttons'
 import { SaveUserData } from '@/lib/actions/UserActions'
 import { toast } from '@/hooks/use-toast'
 import Image from 'next/image'
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 
 interface Props {
     name: string
@@ -53,12 +54,14 @@ const SettingsForm = ({ name, email, image, role }: Props) => {
   return (
     <Form {...form}>
       <div className='w-full'>
-      <Image 
-      className='mx-auto rounded-full border-dashed duration-200 transition-all opacity-0' 
+      <Avatar className='mx-auto rounded-full w-[8rem] h-[8rem]'>
+        <AvatarImage src={image}/>
+        <AvatarFallback>CN</AvatarFallback>
+      </Avatar>
+      {/* className='mx-auto rounded-full border-dashed duration-200 transition-all opacity-0' 
       src={image as string} 
-      alt="Profile Image" 
       width={100} height={100} 
-      onLoadingComplete={(image) => image.classList.remove("opacity-0")} />
+      onLoadingComplete={(image) => image.classList.remove("opacity-0")} /> */}
       </div>
     <form 
     onSubmit={form.handleSubmit(onSubmit)}

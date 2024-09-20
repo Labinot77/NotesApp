@@ -9,6 +9,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
+import { toast } from "@/hooks/use-toast";
+import { register } from "@/acitons/register";
+import { redirect } from "next/navigation";
 
 const RegisterForm = () => {
   const form = useForm<z.infer<typeof UserCreationValidation>>({
@@ -24,7 +27,10 @@ const RegisterForm = () => {
   
   const onSubmit = async (values: z.infer<typeof UserCreationValidation>) => {
     try {
-    await loginWithCreds(values)
+        
+    await register(values)
+
+      redirect('/dashboard')
     } catch (error) {
       console.error("Login error:", error);
     }
