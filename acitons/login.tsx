@@ -15,7 +15,7 @@ export const login = async (values: z.infer<typeof UserLoginValidation>) => {
   }
 
   const { email, password } = validateField.data
-  const existingUser = getUserEmail(email)
+  const existingUser = await getUserEmail(email)
 
   if (!existingUser) {
     return { error: "Invalid credentials!" }
@@ -27,12 +27,6 @@ export const login = async (values: z.infer<typeof UserLoginValidation>) => {
       email: email, 
       password: password
      })
-
-    //  if (res.error) {
-    //    console.log(res.error)
-    //  } else {
-    //   return redirect("/dashboard")
-    //  }
 
     if (!res.error) {
       return redirect("/dashboard")

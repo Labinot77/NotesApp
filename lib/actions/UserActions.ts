@@ -13,6 +13,10 @@ export async function getUserEmail(email: string) {
     },
   })
 
+  if (!user) {
+    return null
+  }
+
   return user
 }
 

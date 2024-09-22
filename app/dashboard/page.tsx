@@ -1,6 +1,7 @@
 import { auth } from '@/auth'
 import Note from '@/components/Note'
 import { FindUserTickets } from '@/lib/actions/TicketActions'
+import { wait } from '@/lib/Miscellaneous'
 import { redirect } from 'next/navigation'
 
 interface Props {
@@ -15,10 +16,11 @@ interface Props {
 
 const page = async () => {
   const session = await auth()
-     if (!session?.user) { redirect("/api/sign-in?callbackUrl=/dashboard")}
+     if (!session?.user) { redirect("/authentication/sign-in?callbackUrl=/dashboard")}
+     
+     const data = await FindUserTickets(session.user.id as string)
 
-   const data = await FindUserTickets(session.user.id as string)
-  return (
+     return (
     <main className='p-2 grid grid-cols-1 lg:grid-cols-2 auto-rows-auto gap-4 items-center justify-start'>
         {data?.Notes?.length ? (
           data.Notes.map((note: Props) => (

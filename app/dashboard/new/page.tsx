@@ -19,20 +19,24 @@ import { toast } from "@/hooks/use-toast";
 import { SubmitButton } from "@/components/Buttons/Buttons";
 import { TitleColors } from "@/constants";
 import { useState } from "react";
-import { capitalizeLetter } from "@/lib/Miscellaneous";
-import { UploadButton } from "@/utils/uploadthing";
+import { capitalizeLetter, wait } from "@/lib/Miscellaneous";
 import ImageUpload from "@/components/ImageUpload";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 export function TicketCreationPage() {
+  const session = useSession();
+  if (!session?.data?.user?.id) return redirect("/authentication/sign-in?callbackUrl=/dashboard/new");
+
+
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(false);
   const form = useForm<z.infer<typeof TicketCreationValidation>>({
     resolver: zodResolver(TicketCreationValidation),
     defaultValues: {
       title: "",
       content: "",
-      color: "",
-      background: "",
+      // color: "",
+      // background: "",
     },
   });
 

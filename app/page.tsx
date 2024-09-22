@@ -18,8 +18,9 @@ export default async function Home() {
             </span>
           </span>
  
-          <h1 className="mt-8 text-3xl font-extrabold tracking-tight lg:text-6xl ">Create Notes with <span className="block bg-clip-text text-transparent from-blue-500 to-purple-700 via-pink-400 bg-gradient-to-r">ease</span></h1>
-          <p className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 font-sans font-bold max-w-lg mx-auto my-2 text-lg text-center">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Explicabo, est officiis recusandae illo debitis dolorem doloremque magnam saepe perspiciatis, ut quo.</p>
+          <h1 className="mt-8 text-3xl font-extrabold tracking-tight lg:text-6xl ">Create Notes with <span className="block bg-clip-text text-transparent from-blue-500 to-purple-700 via-pink-400 bg-gradient-to-r animate-bounce">ease</span></h1>
+          <p className="bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600 font-sans font-bold max-w-lg mx-auto my-2 text-lg text-center">
+            With our intuitive platform, organizing and creating notes has never been simpler. Whether you're jotting down quick ideas or drafting detailed plans, our tools help you stay on top of it all. Start simplifying your workflow and keep everything neatly in one place.</p>
         </div>
         {(await session?.user) ? (
           <div className="mt-16 w-full">

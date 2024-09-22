@@ -48,7 +48,8 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
         if (validatedFields.success) {
           const { email, password } = validatedFields.data
           const user = await getUserEmail(email)
-          // by no password I mean that the user is using a social login (Google, Github, etc.)
+
+          // by no password and email I mean that the user is using a social login (Google, Github, etc.)
           if (!user || !user.password || !user.email ) return null
 
           // check if passwords match

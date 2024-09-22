@@ -14,12 +14,12 @@ const validateField = UserCreationValidation.safeParse(values);
  }
 
  const { name, email, password } = validateField.data;
- const hasedPassword = await saltAndHashPassword(password);
+ const hasedPassword = saltAndHashPassword(password);
 
  const existingUser = await getUserEmail(email);
 
  if (existingUser) {
-   return { error: "User already exists" };
+   return { error: "User with that email already exists" };
  }
 
  await db.user.create({
@@ -31,6 +31,6 @@ const validateField = UserCreationValidation.safeParse(values);
  })
 
 
- return { success: "success" };
+ return { description: "Your account has been created successfully" };
 
 }

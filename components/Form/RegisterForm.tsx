@@ -33,20 +33,20 @@ const RegisterForm = () => {
 
   const onSubmit = async (values: z.infer<typeof UserCreationValidation>) => {
     try {
-      await register(values);
+      const result =await register(values);
 
-      const result = await login(values);
+      // const result = await login(values);
 
       if (result?.error) {
         toast({
-          title: "Login Error",
+          title: "Register Error",
           description: result.error,
         });
       } else {  
         form.reset({ name: "", email: "", password: "" });
         toast({
-          title: "Login Success",
-          description: "You are now logged in",
+          title: "Register Success",
+          description: result.description,
         });
         
         return redirect("/dashboard");
