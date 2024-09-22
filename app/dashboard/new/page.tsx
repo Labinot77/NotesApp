@@ -19,12 +19,12 @@ import { toast } from "@/hooks/use-toast";
 import { SubmitButton } from "@/components/Buttons/Buttons";
 import { TitleColors } from "@/constants";
 import { useState } from "react";
-import { capitalizeLetter, wait } from "@/lib/Miscellaneous";
+import { capitalizeLetter } from "@/lib/Miscellaneous";
 import ImageUpload from "@/components/ImageUpload";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 
-export function TicketCreationPage() {
+export function TicketCreation() {
   const session = useSession();
   if (!session?.data?.user?.id) return redirect("/authentication/sign-in?callbackUrl=/dashboard/new");
 
@@ -35,8 +35,8 @@ export function TicketCreationPage() {
     defaultValues: {
       title: "",
       content: "",
-      // color: "",
-      // background: "",
+      color: "",
+      background: "",
     },
   });
 
@@ -113,4 +113,4 @@ export function TicketCreationPage() {
   );
 }
 
-export default TicketCreationPage;
+export default TicketCreation;
