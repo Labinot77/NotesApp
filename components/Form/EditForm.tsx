@@ -25,6 +25,8 @@ import { Separator } from '../ui/separator'
 import Uploader from '../Upload'
 import { useState } from 'react'
 import { UploadButton } from '@/utils/uploadthing'
+import { ImageUp } from 'lucide-react'
+import ImageUpload from '../ImageUpload'
 
 interface Props {
   id: string
@@ -53,7 +55,6 @@ const EditForm = ({ id, content, title, image }: Props) => {
         id: id
       }
 
-      console.log(formData)
       await SaveEditedNote(formData);
 
       toast({
@@ -70,22 +71,9 @@ const EditForm = ({ id, content, title, image }: Props) => {
 
   return (
     <Form {...form}>
-    <form onSubmit={form.handleSubmit(onSubmit)} className="px-16 flex flex-col justify-center items-center">
-      <div className={`h-[20vh] mb-2 relative bg-neutral-300 w-full rounded-md group`}> 
-        {uploadedImageUrl && (
-          <Image 
-          src={uploadedImageUrl} 
-          alt="Note Image" 
-          className="object-cover rounded-md transition-opacity duration-200"
-          onLoadingComplete={(image) => image.classList.remove("opacity-0")} 
-          fill />
-        )}
-          <UploadButton onClientUploadComplete={(res) => { 
-            setUploadedImageUrl(res[0].url) 
-            }}
-             endpoint='imageUploader' 
-             className='absolute bottom-5 right-5 w-fit ut-allowed-content:hidden ut-button:bg-slate-200 ut-button:hover:bg-slate-300 ut-button:text-neutral-800 ut-button:transition-colors opacity-0 group-hover:opacity-100 duration-500 ut-button:w-[7rem] ut-button:h-[2rem] ut-button:text-sm' />
-        </div>
+    <form onSubmit={form.handleSubmit(onSubmit)} className="px-16 flex flex-col">
+      <h1 className='flex justify-end text-sm text-neutral-400 opacity-50'>ID: {id}</h1>
+        <ImageUpload uploadedImageUrl={uploadedImageUrl} setUploadedImageUrl={setUploadedImageUrl} />
       <FormField
         control={form.control}
         name="title"
@@ -106,15 +94,15 @@ const EditForm = ({ id, content, title, image }: Props) => {
           <FormItem>
             <FormLabel>Content</FormLabel>
             <FormControl>
-              <Textarea placeholder={content} {...field} />
+              <Textarea className='resize-none h-44' placeholder={content} {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
       <SubmitButton title="Save Changes" pending={isSubmitting} />
-    </form>
     <TrashDelete noteId={id} pending={isSubmitting} />
+    </form>
   </Form>
   )
 }

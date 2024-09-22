@@ -5,7 +5,6 @@ import { auth } from "@/auth";
 import { db } from "@/db";
 import { TickerEditValidation, TicketCreationValidation } from "../validations/TicketValidations";
 import { z } from "zod";
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 
@@ -28,7 +27,7 @@ export async function CreateTicketData(values: z.infer<typeof TicketCreationVali
       // },
     }
   });
-  return revalidatePath("/dashboard");
+  return redirect("/dashboard");
 }
 
 export async function FindUserTickets(userId: string) {
@@ -101,8 +100,10 @@ export async function SaveEditedNote(values: z.infer<typeof TickerEditValidation
     },
   });
 
+
   return redirect("/dashboard");
 }
+
 
 export const deleteNote = async (id: string) => {
   await db.note.delete({

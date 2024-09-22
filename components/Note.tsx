@@ -23,9 +23,9 @@ const Note = ({ id, title, content, color, background, image, createdAt }: Props
   }
 
   return (
-<main key={id} className="p-1 w-full rounded-md bg-gray-800/50 flex flex-col shadow-2xl">
+<main key={id} className="p-1 w-full rounded-md bg-gray-800/30 flex flex-col shadow-2xl">
   <div className='w-full'>
-      <h2 className="text-base rounded-md p-1" style={{ backgroundColor: background, color: color }}>{title}</h2>
+      <h2 className="text-lg font-semibold rounded-md p-1" style={{ backgroundColor: background, color: color }}>{title}</h2>
       {image ? (
         <div className='h-[15vh] relative'>
           <Image 
@@ -33,7 +33,11 @@ const Note = ({ id, title, content, color, background, image, createdAt }: Props
             alt='Note Image' 
             className='object-cover object-center rounded-md transition-opacity duration-200 opacity-0 p-1' 
             fill
-            onLoadingComplete={(image) => image.classList.remove("opacity-0")}
+            priority
+            onLoad={(e) => {
+              const image = e.currentTarget as HTMLImageElement;
+              image.classList.remove("opacity-0")
+            }}
           />
         </div>
       ) : null }

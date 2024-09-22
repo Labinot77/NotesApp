@@ -11,7 +11,7 @@ const Uploader = ({ onUploadCompleted }: { onUploadCompleted: (res: string) => v
         endpoint="imageUploader"
         onClientUploadComplete={(res) => {
           onUploadCompleted(res[0].url);
-          console.log(res[0].url);
+          // console.log(res[0].url);
         }}
         onUploadError={(error: Error) => {
           

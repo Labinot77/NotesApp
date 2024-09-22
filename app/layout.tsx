@@ -5,6 +5,7 @@ import "./globals.css";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import clsx from "clsx";
+import { Toaster } from "@/components/ui/toaster";
 
 
 const inter = Inter({ subsets: ["latin"] })
@@ -27,6 +28,7 @@ export default async function RootLayout({
       <body
         className={clsx(`${inter.className}`)}>
         {children}
+        <Toaster />
       </body>
     </html>
     </SessionProvider>

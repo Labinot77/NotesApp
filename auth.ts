@@ -5,13 +5,16 @@ import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "next-auth/providers/credentials";
 import { db } from "./db";
 import { PrismaClient } from "@prisma/client";
-import { saltAndHashPassword } from "./lib/PasswordHash";
+import bcrypt from "bcryptjs";
+import { UserLoginValidation } from "./lib/validations/UserValidation";
+import { getUserEmail } from "./lib/actions/UserActions";
 
 export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(db as PrismaClient),
   session: {strategy: "jwt"},
   pages: {
     signIn: "/authentication/sign-in",
+    error: "/authentication/error",
   },
   callbacks: {
     jwt({ token, user }) {
@@ -21,9 +24,13 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
       return token;
     },
     session({ session, token }) {
-      session.user.id = token.id as string;
-      return session
+      // console.log("Session Callback - Token ID:", token.id);
+      // console.log("Session Callback - Token Sub:", token.sub);
+      
+      session.user.id = token.id as string || token.sub as string; 
+      return session;
     },
+
   },
   providers: [
     Github({
@@ -35,54 +42,27 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     Credentials({
-    name: "Credentials",
-    credentials: {
-      name: {
-        label: "name",
-        type: "name",
-      },
-      email: {
-        label: "Email",
-        type: "email",
-      },
-      password: {
-        label: "Password",
-        type: "password",
-      },
-    },
-    authorize: async (credentials) => {
-      if (!credentials.name || !credentials.email || !credentials.password) {
-        return null;
-      }
+    async authorize(credentials) { 
+        const validatedFields = UserLoginValidation.safeParse(credentials)
 
-      const name = credentials.name as string;
-      const email = credentials.email as string;
-      const hashedPassword = saltAndHashPassword(credentials.password);
+        if (validatedFields.success) {
+          const { email, password } = validatedFields.data
+          const user = await getUserEmail(email)
+          // by no password I mean that the user is using a social login (Google, Github, etc.)
+          if (!user || !user.password || !user.email ) return null
 
+          // check if passwords match
+          const result = await bcrypt.compare(password, user.password)
+          // console.log(result)
+          if (!result) return null
 
-      let user = await db.user.findUnique({
-        where: {
-          email,
-        },
-      });
-
-      if (!user) {
-        user = await db.user.create({
-          data: {
-            name,
-            email,
-            password: hashedPassword,
-          },
-        });
-      } else {
-        
-        if (user.password !== hashedPassword) {
-          return null;
+          // if the passwords match, return the user
+          // console.log(user)
+          return user
         }
+        
+        return null
       }
-
-      return user;
-    },
-  }),
+    }),
   ],
 })

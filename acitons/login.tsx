@@ -1,9 +1,10 @@
 'use server'
 
 import { signIn } from "@/auth"
-import { db } from "@/db"
 import { getUserEmail } from "@/lib/actions/UserActions"
 import { UserLoginValidation } from "@/lib/validations/UserValidation"
+import { AuthError } from "next-auth"
+import { redirect } from "next/navigation"
 import { z } from "zod"
 
 export const login = async (values: z.infer<typeof UserLoginValidation>) => {
@@ -19,21 +20,34 @@ export const login = async (values: z.infer<typeof UserLoginValidation>) => {
   if (!existingUser) {
     return { error: "Invalid credentials!" }
   }
-
-
+  
   try {
-    const result = await signIn("credentials", {
-      email,
-      password,
-    })
+    const res = await signIn("credentials", { 
+      redirect: false,
+      email: email, 
+      password: password
+     })
 
-    if (result?.error) {
-      return { error: "Invalid credentials!" }
+    //  if (res.error) {
+    //    console.log(res.error)
+    //  } else {
+    //   return redirect("/dashboard")
+    //  }
+
+    if (!res.error) {
+      return redirect("/dashboard")
     }
 
-  } catch (error) {
-    
-  }
-  
+  } catch (error: any) {
+    if (error instanceof AuthError) {
+      switch (error.type) {
+        case "CredentialsSignin":
+          return { error: "Invalid credentials!" };
+        default:
+          return { error: "Something went wrong!" };
+      }
+    }
 
+    throw error;
+  }
 }

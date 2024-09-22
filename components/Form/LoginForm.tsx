@@ -2,19 +2,20 @@
 
 import React from "react";
 import AuthButton from "../Buttons/AuthButton";
-import { loginWithCreds } from "@/acitons/auth";
 import { useForm } from "react-hook-form";
-import { UserCreationValidation } from "@/lib/validations/UserValidation";
+import { UserLoginValidation } from "@/lib/validations/UserValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
+import { login } from "@/acitons/login";
+import { toast } from "@/hooks/use-toast";
+import { redirect } from "next/navigation";
 
 const LoginForm = () => {
-  const form = useForm<z.infer<typeof UserCreationValidation>>({
-    resolver: zodResolver(UserCreationValidation),
+  const form = useForm<z.infer<typeof UserLoginValidation>>({
+    resolver: zodResolver(UserLoginValidation),
     defaultValues: {
-      // name: "",
       email: "",
       password: "",
     },
@@ -22,9 +23,25 @@ const LoginForm = () => {
 
   // Make a sign in and sign up form to reduce errors.
 
-  const onSubmit = async (values: z.infer<typeof UserCreationValidation>) => {
+  const onSubmit = async (values: z.infer<typeof UserLoginValidation>) => {
     try {
-    await loginWithCreds(values)
+
+    const result = await login(values)
+
+    if (result?.error) {
+      toast({
+        title: "Login Error",
+        description: result.error,
+      })
+    } else {
+      toast({
+        title: "Login Success",
+        description: "You are now logged in",
+      })
+      form.reset({ email: "", password: "" });
+
+      return redirect("/dashboard")
+    }
     } catch (error) {
       console.error("Login error:", error);
     }
@@ -36,20 +53,6 @@ const LoginForm = () => {
     <form 
     onSubmit={form.handleSubmit(onSubmit)}
     className="flex p-3 flex-col gap-2">
-       {/* <FormField
-        control={form.control}
-        name="name"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Name</FormLabel>
-            <FormControl>
-              <Input className="px-2" placeholder="Dave" 
-              type="text" {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      /> */}
       <FormField
         control={form.control}
         name="email"

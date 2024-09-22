@@ -1,6 +1,5 @@
 import Footer from "@/components/Footer"
 import Navbar from "@/components/Navbar"
-import { Toaster } from "@/components/ui/toaster";
 import { ReactNode } from "react"
 
 const DashBoardLayout = async ({ children}: { children: ReactNode}) => {
@@ -11,7 +10,6 @@ const DashBoardLayout = async ({ children}: { children: ReactNode}) => {
       <div className="p-2 overflow-y-auto scrollbar-hidden h-full mb-1">
         {children}
       </div>
-        <Toaster />
         <Footer />
         </main>
     </div>
