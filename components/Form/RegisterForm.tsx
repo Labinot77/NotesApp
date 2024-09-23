@@ -17,10 +17,10 @@ import {
 import { Input } from "../ui/input";
 import { toast } from "@/hooks/use-toast";
 import { register } from "@/acitons/register";
-import { redirect } from "next/navigation";
-import { login } from "@/acitons/login";
+import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
+  const router = useRouter();
   const form = useForm<z.infer<typeof UserCreationValidation>>({
     resolver: zodResolver(UserCreationValidation),
     defaultValues: {
@@ -29,14 +29,13 @@ const RegisterForm = () => {
       password: "",
     },
   });
-
+  const { isSubmitting} = form.formState;
 
   const onSubmit = async (values: z.infer<typeof UserCreationValidation>) => {
     try {
-      const result =await register(values);
+      const result = await register(values);
 
       // const result = await login(values);
-
       if (result?.error) {
         toast({
           title: "Register Error",
@@ -48,8 +47,8 @@ const RegisterForm = () => {
           title: "Register Success",
           description: result.description,
         });
-        
-        return redirect("/dashboard");
+
+        router.push("/authentication/sign-in");
       }
     } catch (error) {
       console.error("Login error:", error);
@@ -111,7 +110,7 @@ const RegisterForm = () => {
             </FormItem>
           )}
         />
-        <AuthButton label="Sign Up" />
+        <AuthButton label="Sign Up" pending={isSubmitting}/>
       </form>
     </Form>
   );

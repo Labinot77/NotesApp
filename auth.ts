@@ -24,13 +24,13 @@ export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
       return token;
     },
     session({ session, token }) {
-      // console.log("Session Callback - Token ID:", token.id);
-      // console.log("Session Callback - Token Sub:", token.sub);
       
       session.user.id = token.id as string || token.sub as string; 
+
+
+      console.log("Session", session)
       return session;
     },
-
   },
   providers: [
     Github({

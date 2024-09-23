@@ -1,10 +1,16 @@
+import { auth } from "@/auth";
 import LoginWithOAuth from "@/components/Buttons/LoginWithOAuth";
 import LoginForm from "@/components/Form/LoginForm";
-import RegisterForm from "@/components/Form/RegisterForm";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 
-const SignUp = () => {
+const SignUp = async () => {
+  const session = await auth();
+  if (session?.user) {
+    redirect("/dashboard");
+  }
+
   return (
     <div className="w-full flex mt-40 justify-center h-screen">
       <section className="flex flex-col w-[27rem]">

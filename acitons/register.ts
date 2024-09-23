@@ -2,8 +2,11 @@
 
 import { db } from "@/db";
 import { getUserEmail } from "@/lib/actions/UserActions";
+import { sendVerificationEmail } from "@/lib/mail";
 import { saltAndHashPassword } from "@/lib/PasswordHash";
+import { generateVerficicationToken } from "@/lib/tokens";
 import { UserCreationValidation } from "@/lib/validations/UserValidation";
+import { redirect } from "next/navigation";
 import { z } from "zod";
 
 
@@ -30,7 +33,11 @@ const validateField = UserCreationValidation.safeParse(values);
    }
  })
 
+// To properly use it i need to buy a domain name.
+ const verificationToken = await generateVerficicationToken(email);
 
- return { description: "Your account has been created successfully" };
+ await sendVerificationEmail(verificationToken.identifier, verificationToken.token);
+
+ return { description: "Email is sent!", };
 
 }

@@ -81,7 +81,6 @@ export const RemoveImageButton = ({ event, classes }: { classes?: string, event:
 // export const Logout = ({ pending }: { pending?: boolean }) => {
 export const Logout = () => {
   const {pending} = useFormStatus();
-  
   return (
     <>  
     {pending ? (

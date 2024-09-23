@@ -12,3 +12,6 @@ export const noSpaces = (str: string) => {
   }
   return true;
 }
+
+
+// TESTING

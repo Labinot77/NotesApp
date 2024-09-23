@@ -3,8 +3,7 @@
 import React from "react";
 import { useFormStatus } from "react-dom";
 
-const AuthButton = ({label}: {label: string}) => {
-  const { pending } = useFormStatus();
+const AuthButton = ({label, pending}: {label: string, pending: boolean}) => {
   return (
     <button
       disabled={pending}

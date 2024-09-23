@@ -2,6 +2,8 @@
 
 import { signIn } from "@/auth"
 import { getUserEmail } from "@/lib/actions/UserActions"
+import { sendVerificationEmail } from "@/lib/mail"
+import { generateVerficicationToken } from "@/lib/tokens"
 import { UserLoginValidation } from "@/lib/validations/UserValidation"
 import { AuthError } from "next-auth"
 import { redirect } from "next/navigation"
@@ -20,6 +22,18 @@ export const login = async (values: z.infer<typeof UserLoginValidation>) => {
   if (!existingUser) {
     return { error: "Invalid credentials!" }
   }
+
+    if (!existingUser.emailVerified) {
+      const verificationToken = await generateVerficicationToken(existingUser.email);
+
+      await sendVerificationEmail(
+        verificationToken.identifier,
+        verificationToken.token,
+      )
+      
+      return { title: "Email not verified" ,description: "Email is sent! Please check your email inbox!" }
+    }
+
   
   try {
     const res = await signIn("credentials", { 
@@ -27,6 +41,10 @@ export const login = async (values: z.infer<typeof UserLoginValidation>) => {
       email: email, 
       password: password
      })
+
+     if (res.success) {
+       return { title: "Login Success", description: "You are logged in!", redirect: "/dashboard" }
+     }
 
     if (!res.error) {
       return redirect("/dashboard")

@@ -5,8 +5,6 @@ import EditForm from '@/components/Form/EditForm'
 
 async function DynamicRoute({params}: {params: { id: string }}) {
   const session = await auth()
-  
-  
   if (!session?.user) {
     redirect("/api/sign-in?callback/Url=/dashboard/new")
   }

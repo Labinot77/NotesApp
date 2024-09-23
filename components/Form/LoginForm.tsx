@@ -10,7 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "../ui/input";
 import { login } from "@/acitons/login";
 import { toast } from "@/hooks/use-toast";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const form = useForm<z.infer<typeof UserLoginValidation>>({
@@ -20,6 +20,8 @@ const LoginForm = () => {
       password: "",
     },
   });
+  const { isSubmitting } = form.formState;
+  const router = useRouter();
 
   // Make a sign in and sign up form to reduce errors.
 
@@ -35,12 +37,14 @@ const LoginForm = () => {
       })
     } else {
       toast({
-        title: "Login Success",
-        description: "You are now logged in",
+        title: result?.title,
+        description: result?.description,
       })
       form.reset({ email: "", password: "" });
 
-      return redirect("/dashboard")
+      if (result?.redirect) {
+        router.push(result.redirect)
+      }
     }
     } catch (error) {
       console.error("Login error:", error);
@@ -80,7 +84,7 @@ const LoginForm = () => {
           </FormItem>
         )}
       />
-        <AuthButton label="Sign In" />
+        <AuthButton label="Sign In" pending={isSubmitting}/>
     </form>
   </Form>
   );

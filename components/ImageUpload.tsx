@@ -13,7 +13,7 @@ const ImageUpload = ({ uploadedImageUrl, setUploadedImageUrl }: ImageUploadProps
     <div
     className={`h-[20vh] mb-2 relative bg-neutral-300 w-full rounded-md group`}
   >
-    <h1 className="text-6xl absolute left-[32%] top-[32%] text-neutral-400 opacity-35">Add an image</h1>
+    <h1 className="lg:text-6xl text-4xl absolute left-[32%] top-[32%] text-neutral-400 opacity-35">Add an image</h1>
     {uploadedImageUrl && (
         <Image
           src={uploadedImageUrl as string}
