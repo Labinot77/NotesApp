@@ -1,60 +1,50 @@
-"use client"
+"use client";
 
 import { newVerification } from "@/acitons/new-verification";
-import { Button } from "@/components/ui/button";
-import { getVerificationTokenByEmail } from "@/data/verification-tokens";
+import { SubmitButton } from "@/components/Buttons/Buttons";
 import { toast } from "@/hooks/use-toast";
-import { error } from "console";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useFormStatus } from "react-dom";
 
 
-const DynamicRoute = ({ params }: { params: {id: string }}) => {
+const DynamicRoute = ({ params }: { params: { id: string } }) => {
+  const { pending } = useFormStatus();
+  const router = useRouter();
   const token = params.id;
-  // const session = useSession();
-  // const userEmail = session.data?.user?.email;
 
-  // if (!userEmail) {
-  //   return { error: "Not authorized" };
-  // }
+  const onSubmit = async (e: React.FormEvent, token: string) => {
+    e.preventDefault();
 
-  // const verificationToken = await getVerificationTokenByEmail(userEmail);
-  
-  // if (token === verificationToken?.token) {
-
-  const onSubmit = async (token: string) => {
     if (!token) {
       toast({
-        title: 'Error',
-        description: 'Token not found',
-      })
+        title: "Error",
+        description: "Token not found",
+      });
+      return;
     }
 
-    const result = await newVerification(token)
-    
+    const result = await newVerification(token);
+
     if (result.success) {
       toast({
-        title: 'Success',
+        title: "Success",
         description: result.success,
-      })
+      });
+      
+      router.push("/authentication/sign-in");
     } else if (result.error) {
       toast({
-        title: 'Error',
+        title: "Error",
         description: result.error,
-      })
+      });
     }
-  }
-
+  };
 
   return (
-    <main className="flex w-full justify-center items-center h-screen">
-      <Button onClick={() => onSubmit(token)}>
-        <Link href="/authentication/sign-in">
-        Verify your email
-      </Link>
-      </Button>
-  </main>
+    <form className="flex w-full justify-center items-center h-screen" onSubmit={(e) => onSubmit(e, token)}>
+      <SubmitButton title="Verify your email" pending={pending} />
+    </form>
   );
-}
+};
 
 export default DynamicRoute;

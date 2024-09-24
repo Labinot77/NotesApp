@@ -26,7 +26,7 @@ import { redirect } from "next/navigation";
 
 export default function page() { 
   const session = useSession();
-  if (!session?.data?.user?.id) return redirect("/authentication/sign-in?callbackUrl=/dashboard/new");
+  if (!session?.data?.user) return redirect("/authentication/sign-in?callbackUrl=/dashboard/new");
 
 
   const [uploadedImageUrl, setUploadedImageUrl] = useState<string>("");

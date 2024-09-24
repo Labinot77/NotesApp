@@ -22,13 +22,14 @@ import { UploadButton } from "@/utils/uploadthing";
 import Image from "next/image";
 
 interface Props {
+  id: string;
   name: string;
   email: string;
   image: string;
   role: string;
 }
 
-const SettingsForm = ({ name, email, image, role }: Props) => {
+const SettingsForm = ({ id, name, email, image, role }: Props) => {
   const [uploadedImageUrl, setUploadedImageUrl] = useState(image);
   const form = useForm({
     resolver: zodResolver(UserSettings),
@@ -111,7 +112,8 @@ const SettingsForm = ({ name, email, image, role }: Props) => {
             </FormItem>
           )}
         />
-        <p className="p-1 text-center">Role: {role}</p>
+        <p className="text-center text-neutral-400 opacity-45">Role: {role}</p>
+        <p className="text-center text-neutral-400">Account Id: {id}</p>
         <SubmitButton pending={isSubmitting} title="Save Changes" />
       </form>
     </Form>

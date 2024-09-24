@@ -43,9 +43,6 @@ model Note {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
-// type NoteData {
-//   noteColor   String
-// }
 
 model Account {
   id                String  @id @default(auto()) @map("_id") @db.ObjectId
