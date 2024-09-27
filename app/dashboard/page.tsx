@@ -14,6 +14,10 @@ interface Props {
     createdAt: Date
 }
 
+
+// make it so notes take as much space as they need, fix deleting notes
+// if i have time add a theme
+
 const page = async () => {
   const session = await auth()
      if (!session?.user) { redirect("/authentication/sign-in?callbackUrl=/dashboard")}

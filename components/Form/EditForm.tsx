@@ -18,14 +18,9 @@ import { z } from 'zod'
 import { TickerEditValidation } from '@/lib/validations/TicketValidations'
 import { SubmitButton, TrashDelete } from '../Buttons/Buttons'
 import { toast } from '@/hooks/use-toast'
-import { useRouter } from 'next/navigation'
-import { SaveEditedNote } from '@/lib/actions/TicketActions'
+import { deleteNote, SaveEditedNote } from '@/lib/actions/TicketActions'
 import { Textarea } from '../ui/textarea'
-import { Separator } from '../ui/separator'
-import Uploader from '../Upload'
 import { useState } from 'react'
-import { UploadButton } from '@/utils/uploadthing'
-import { ImageUp } from 'lucide-react'
 import ImageUpload from '../ImageUpload'
 
 interface Props {
@@ -36,6 +31,7 @@ interface Props {
 }
 
 const EditForm = ({ id, content, title, image }: Props) => {
+  const [actionType, setActionType] = useState<'save' | 'delete'>();
   const [uploadedImageUrl, setUploadedImageUrl] = useState(image as string);
   const form = useForm<z.infer<typeof TickerEditValidation>>({
     resolver: zodResolver(TickerEditValidation),
@@ -50,6 +46,8 @@ const EditForm = ({ id, content, title, image }: Props) => {
     values.image = uploadedImageUrl
 
     try {
+
+      if (actionType === 'save') {
       const formData = {
         ...values,
         id: id
@@ -61,6 +59,16 @@ const EditForm = ({ id, content, title, image }: Props) => {
         title: 'Note Updated',
         description: 'Your note has been updated successfully!',
       });
+      
+    } else if (actionType === 'delete') {
+
+      await deleteNote(id);
+      toast({
+        title: 'Note Deleted',
+        description: 'Your note has been deleted successfully!',
+      });
+      }
+
     } catch (error) {
       toast({
         title: 'Error',
@@ -100,8 +108,8 @@ const EditForm = ({ id, content, title, image }: Props) => {
           </FormItem>
         )}
       />
-      <SubmitButton title="Save Changes" pending={isSubmitting} />
-    <TrashDelete noteId={id} pending={isSubmitting} />
+      <SubmitButton title="Save Changes" pending={isSubmitting} onClick={() => setActionType('save')} />
+      <TrashDelete title='Delete Note' pending={isSubmitting}  onClick={() => setActionType('delete')} />
     </form>
   </Form>
   )

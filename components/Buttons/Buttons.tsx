@@ -12,10 +12,11 @@ import { useFormStatus } from "react-dom"
 interface Props {
   title: string;
   pending: boolean;
+  onClick?: () => void 
 }
 
 
-export const SubmitButton = ({ title, pending }: Props ) => {
+export const SubmitButton = ({ title, pending, onClick }: Props ) => {
   return (
     <>  
     {pending ? (
@@ -24,7 +25,7 @@ export const SubmitButton = ({ title, pending }: Props ) => {
           Saving
         </Button>
     ): (
-      <Button type="submit">{title}</Button>
+      <Button type="submit" onClick={onClick}>{title}</Button>
     )}
     </>
   )
@@ -50,7 +51,7 @@ export const EditButton = ({ title, pending, id }: { title: string; pending: boo
   )
 }
 
-export const TrashDelete = ({noteId, pending}: {noteId: string, pending?: boolean}) => {
+export const TrashDelete = ({ title, pending, onClick}: Props) => {
   return (
     <>
       {pending ? (
@@ -58,15 +59,30 @@ export const TrashDelete = ({noteId, pending}: {noteId: string, pending?: boolea
              <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
         </Button>
       ) : (
-        <Button variant={"destructive"} size="icon" type="submit" 
-        onClick={() => deleteNote(noteId)}
-        >
+        <Button variant={"destructive"} type="submit" onClick={onClick}>
           <Trash className="h-4 w-4" />
         </Button>
       )}
     </>
   );
 }
+// export const TrashDelete = ({noteId, pending}: {noteId: string, pending?: boolean}) => {
+//   return (
+//     <>
+//       {pending ? (
+//         <Button variant={"destructive"} size="icon" disabled>
+//              <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+//         </Button>
+//       ) : (
+//         <Button variant={"destructive"} size="icon" type="submit" 
+//         onClick={() => deleteNote(noteId)}
+//         >
+//           <Trash className="h-4 w-4" />
+//         </Button>
+//       )}
+//     </>
+//   );
+// }
 
 export const RemoveImageButton = ({ event, classes }: { classes?: string, event: () => void }) => {
   return (
