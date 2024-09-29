@@ -19,7 +19,7 @@ export const login = async (values: z.infer<typeof UserLoginValidation>) => {
   const existingUser = await getUserEmail(email);
 
   if (!existingUser) {
-    return { error: "Invalid credentials!" };
+    return { error: "User already exists!" };
   }
 
     // ** First check if the credentials match with the inputed ones, and if matched then log in the user/send an verification email

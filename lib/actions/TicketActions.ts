@@ -106,7 +106,7 @@ export async function SaveEditedNote(values: z.infer<typeof TickerEditValidation
 
 
 export const deleteNote = async (id: string) => {
-  const result = await db.note.delete({
+  await db.note.delete({
     where: {
       id: id,
     },
