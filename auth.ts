@@ -9,7 +9,7 @@ import bcrypt from "bcryptjs";
 import { UserLoginValidation } from "./lib/validations/UserValidation";
 import { getUserEmail } from "./lib/actions/UserActions";
 
-export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
+export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(db as PrismaClient),
   session: {strategy: "jwt"},
   pages: {
