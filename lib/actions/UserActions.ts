@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { UserSettings } from "../validations/UserValidation";
 
-export async function getUserEmail(email: string) {
+export async function getUserByEmail(email: string) {
   const user = await db.user.findUnique({
     where: {
       email
@@ -18,6 +18,30 @@ export async function getUserEmail(email: string) {
   }
 
   return user
+}
+
+export const getUserSession = async () => {
+  const session = await auth()
+
+  if (!session?.user) {
+    return console.log('No user found')
+  }
+
+  try {
+    const currentSessionUser = await db.user.findUnique({
+      where: {
+        id: session.user.id as string
+      },
+    })
+
+    // if (!currentSessionUser?.id) {
+    //   return "No user found"
+    // }
+
+    return currentSessionUser
+  } catch (error) {
+    return console.log("getUserSession", error)
+  }
 }
 
 export async function getUserData(userId: string) {

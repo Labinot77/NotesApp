@@ -2,7 +2,7 @@
 
 import { getVerificationTokenByToken } from "@/data/verification-tokens";
 import { db } from "@/db";
-import { getUserEmail } from "@/lib/actions/UserActions";
+import { getUserByEmail } from "@/lib/actions/UserActions";
 
 export const newVerification = async (token: string) => {
   const existingToken = await getVerificationTokenByToken(token);
@@ -17,7 +17,7 @@ export const newVerification = async (token: string) => {
     return { error: "Token has expired" };
   }
 
-  const existingUser = await getUserEmail(existingToken.identifier)
+  const existingUser = await getUserByEmail(existingToken.identifier)
 
   if (!existingUser) {  
     return { error: "User does not exist" };

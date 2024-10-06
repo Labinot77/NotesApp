@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db";
-import { getUserEmail } from "@/lib/actions/UserActions";
+import { getUserByEmail } from "@/lib/actions/UserActions";
 import { sendVerificationEmail } from "@/lib/mail";
 import { saltAndHashPassword } from "@/lib/PasswordHash";
 import { generateVerficicationToken } from "@/lib/tokens";
@@ -17,7 +17,7 @@ export const register = async (values: z.infer<typeof UserCreationValidation>) =
   const { name, email, password } = validateField.data;
   const hasedPassword = saltAndHashPassword(password);
 
-  const existingUser = await getUserEmail(email);
+  const existingUser = await getUserByEmail(email);
 
   if (existingUser) {
     return { error: "User with that email already exists" };

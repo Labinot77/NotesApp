@@ -20,7 +20,7 @@ interface Props {
 
 const page = async () => {
   const session = await auth()
-     if (!session?.user) { redirect("/authentication/sign-in?callbackUrl=/dashboard")}
+     if (!session?.user) redirect("/authentication/sign-in?callbackUrl=/dashboard")
      
      const data = await FindUserTickets(session.user.id as string)
 

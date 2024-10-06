@@ -1,7 +1,7 @@
 
 import { auth } from '@/auth'
 import { redirect } from 'next/navigation'
-import SettingsForm from '@/components/Form/SettingsForm'
+import SettingsForm from './Components/SettingsForm'
 import { getUserData } from '@/lib/actions/UserActions'
 import Logout from '@/components/Logout'
 

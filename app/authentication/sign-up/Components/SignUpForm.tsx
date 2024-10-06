@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import AuthButton from "../Buttons/AuthButton";
+import AuthButton from "@/components/Buttons/AuthButton";
 import { useForm } from "react-hook-form";
 import { UserCreationValidation } from "@/lib/validations/UserValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,8 +13,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
-import { Input } from "../ui/input";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import { register } from "@/acitons/register";
 import { useRouter } from "next/navigation";

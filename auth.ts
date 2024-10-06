@@ -7,10 +7,11 @@ import { db } from "./db";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { UserLoginValidation } from "./lib/validations/UserValidation";
-import { getUserEmail } from "./lib/actions/UserActions";
+import { getUserByEmail } from "./lib/actions/UserActions";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(db as PrismaClient),
+export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
+  // adapter: PrismaAdapter(db as PrismaClient),
+  adapter: PrismaAdapter(db),
   session: {strategy: "jwt"},
   pages: {
     signIn: "/authentication/sign-in",
@@ -27,8 +28,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       
       session.user.id = token.id as string || token.sub as string; 
 
-
-      console.log("Session", session)
       return session;
     },
   },
@@ -47,18 +46,16 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         if (validatedFields.success) {
           const { email, password } = validatedFields.data
-          const user = await getUserEmail(email)
+          const user = await getUserByEmail(email)
 
           // by no password and email I mean that the user is using a social login (Google, Github, etc.)
           if (!user || !user.password || !user.email ) return null
 
           // check if passwords match
           const result = await bcrypt.compare(password, user.password)
-          // console.log(result)
+
           if (!result) return null
 
-          // if the passwords match, return the user
-          // console.log(user)
           return user
         }
         

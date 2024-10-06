@@ -1,13 +1,13 @@
-import { auth } from "@/auth";
 import LoginWithOAuth from "@/components/Buttons/LoginWithOAuth";
-import LoginForm from "@/components/Form/LoginForm";
+import LoginForm from "./Components/SignInForm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getUserSession } from "@/lib/actions/UserActions";
 
 
 const SignUp = async () => {
-  const session = await auth();
-  if (session?.user) {
+  const session = await getUserSession();
+  if (session?.id) {
     redirect("/dashboard");
   }
 

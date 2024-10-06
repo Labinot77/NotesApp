@@ -1,7 +1,7 @@
 "use server";
 
 import { signIn } from "@/auth";
-import { getUserEmail } from "@/lib/actions/UserActions";
+import { getUserByEmail } from "@/lib/actions/UserActions";
 import { sendVerificationEmail } from "@/lib/mail";
 import { generateVerficicationToken } from "@/lib/tokens";
 import { UserLoginValidation } from "@/lib/validations/UserValidation";
@@ -16,7 +16,7 @@ export const login = async (values: z.infer<typeof UserLoginValidation>) => {
   }
 
   const { email, password } = validateField.data;
-  const existingUser = await getUserEmail(email);
+  const existingUser = await getUserByEmail(email);
 
   if (!existingUser) {
     return { error: "User already exists!" };
@@ -38,7 +38,7 @@ export const login = async (values: z.infer<typeof UserLoginValidation>) => {
       const verificationToken = await generateVerficicationToken(existingUser.email);
   
       await sendVerificationEmail(
-        verificationToken.identifier,
+        verificationToken.identifier, // email
         verificationToken.token
       );
   
@@ -53,6 +53,7 @@ export const login = async (values: z.infer<typeof UserLoginValidation>) => {
       description: "You are logged in!",
       redirect: "/dashboard",
     };
+
   } catch (error: any) {
     if (error instanceof AuthError) {
       switch (error.type) {

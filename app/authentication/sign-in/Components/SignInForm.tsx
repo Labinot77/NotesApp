@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import AuthButton from "../Buttons/AuthButton";
+import AuthButton from "@/components/Buttons/AuthButton";
 import { useForm } from "react-hook-form";
 import { UserLoginValidation } from "@/lib/validations/UserValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import { Input } from "../ui/input";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 import { login } from "@/acitons/login";
 import { toast } from "@/hooks/use-toast";
 import { redirect, useRouter } from "next/navigation";

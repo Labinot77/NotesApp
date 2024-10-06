@@ -22,9 +22,6 @@ export async function CreateTicketData(values: z.infer<typeof TicketCreationVali
       color: values.color,
       background: values.background,
       image: values.image,
-      // noteData: {
-      //   noteColor: "",
-      // },
     }
   });
   return redirect("/dashboard");
@@ -52,7 +49,7 @@ export async function FindUserTickets(userId: string) {
           createdAt: true,
         },
         orderBy: {
-          createdAt: "desc", 
+          createdAt: "desc",
         },
       },
     },
@@ -62,25 +59,24 @@ export async function FindUserTickets(userId: string) {
 }
 
 export async function EditUserNote(NoteId: string) {
-  const session = await auth();
-  if (!session?.user?.id) {
-    throw new Error("Not authorized");
+  try {
+    const data = await db.note.findUnique({
+      where: {
+        id: NoteId,
+      },
+      select: {
+        title: true,
+        content: true,
+        image: true,
+        id: true,
+        createdAt: true,
+      },
+    });
+
+    return data;
+  } catch (error) {
+    return null;
   }
-
-  const data = await db.note.findUnique({
-    where: {
-      id: NoteId,
-    },
-    select: {
-          title: true,
-          content: true,
-          image: true,
-          id: true,
-          createdAt: true,
-    },
-  });
-
-  return data;
 }
 
 export async function SaveEditedNote(values: z.infer<typeof TickerEditValidation>) {

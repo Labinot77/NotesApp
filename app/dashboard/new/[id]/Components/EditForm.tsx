@@ -14,12 +14,14 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { TickerEditValidation } from '@/lib/validations/TicketValidations'
-import { SubmitButton, TrashDelete } from '../Buttons/Buttons'
+import { SubmitButton, TrashDelete } from '@/components/Buttons/Buttons'
 import { toast } from '@/hooks/use-toast'
 import { deleteNote, SaveEditedNote } from '@/lib/actions/TicketActions'
-import { Textarea } from '../ui/textarea'
+import { Textarea } from '@/components/ui/textarea'
 import { useState } from 'react'
-import ImageUpload from '../ImageUpload'
+import ImageUpload from '@/components/ImageUpload'
+import { MoveLeft } from "lucide-react"
+import Link from "next/link"
 
 interface Props {
   id: string
@@ -78,7 +80,12 @@ const EditForm = ({ id, content, title, image }: Props) => {
   return (
     <Form {...form}>
     <form onSubmit={form.handleSubmit(onSubmit)} className="px-16 flex flex-col">
-      <h1 className='flex justify-end text-sm text-neutral-400 opacity-50'>ID: {id}</h1>
+      <div className="flex justify-between">
+        <Link href={`/dashboard`}>
+            <MoveLeft className="text-neutral-500 justify-end" />
+        </Link>
+          <h1 className='flex justify-end text-sm text-neutral-400 opacity-50'>ID: {id}</h1>
+      </div>
         <ImageUpload uploadedImageUrl={uploadedImageUrl} setUploadedImageUrl={setUploadedImageUrl} />
       <FormField
         control={form.control}

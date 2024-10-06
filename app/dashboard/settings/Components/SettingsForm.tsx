@@ -5,21 +5,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-  Form,
-} from "../ui/form";
-import { Input } from "../ui/input";
-import { SubmitButton } from "../Buttons/Buttons";
 import { SaveUserData } from "@/lib/actions/UserActions";
 import { toast } from "@/hooks/use-toast";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { UploadButton } from "@/utils/uploadthing";
 import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { SubmitButton } from "@/components/Buttons/Buttons";
 
 interface Props {
   id: string;
