@@ -1,8 +1,7 @@
 "use client"
 
 import React from 'react'
-import LoginGithub from './LoginGithub'
-import LoginGoogle from './LoginGoogle'
+import { LoginGithub, LoginGoogle } from './LoginWithSocials'
 
 const LoginWithOAuth = () => {
   return (

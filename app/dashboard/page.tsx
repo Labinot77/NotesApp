@@ -2,6 +2,7 @@ import { auth } from '@/auth'
 import Note from '@/components/Note'
 import { FindUserTickets } from '@/lib/actions/TicketActions'
 import { wait } from '@/lib/Miscellaneous'
+import { JsonValue } from '@prisma/client/runtime/library'
 import { redirect } from 'next/navigation'
 
 interface Props {

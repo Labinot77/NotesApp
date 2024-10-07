@@ -4,6 +4,7 @@ import { redirect } from 'next/navigation'
 import SettingsForm from './Components/SettingsForm'
 import { getUserData } from '@/lib/actions/UserActions'
 import Logout from '@/components/Logout'
+import { ModeToggle } from './Components/ModeToggle'
 
 const page = async () => {
   const session = await auth()
@@ -14,7 +15,8 @@ const page = async () => {
     
   return (
     <main className='p-2 h-full'>
-      <div className='w-full flex justify-end'>
+      <div className='w-full flex gap-5 justify-end'>
+        <ModeToggle />
         <Logout />
       </div>
       {/* @ts-ignore  */}

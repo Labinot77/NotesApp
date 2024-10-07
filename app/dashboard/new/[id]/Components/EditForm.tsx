@@ -17,33 +17,38 @@ import { TickerEditValidation } from '@/lib/validations/TicketValidations'
 import { SubmitButton, TrashDelete } from '@/components/Buttons/Buttons'
 import { toast } from '@/hooks/use-toast'
 import { deleteNote, SaveEditedNote } from '@/lib/actions/TicketActions'
-import { Textarea } from '@/components/ui/textarea'
 import { useState } from 'react'
-import ImageUpload from '@/components/ImageUpload'
+import ImageUpload from '@/app/dashboard/new/Components/ImageUpload'
 import { MoveLeft } from "lucide-react"
 import Link from "next/link"
+import Editor from "../../Components/Editor"
+import { Block } from "@blocknote/core"
 
 interface Props {
   id: string
-  content: string
+  content: string;
   title: string
   image: string | null
 }
 
 const EditForm = ({ id, content, title, image }: Props) => {
+  const [blocks, setBlocks] = useState<Block[]>([]);
   const [actionType, setActionType] = useState<'save' | 'delete'>();
   const [uploadedImageUrl, setUploadedImageUrl] = useState(image as string);
   const form = useForm<z.infer<typeof TickerEditValidation>>({
     resolver: zodResolver(TickerEditValidation),
     defaultValues: {
       title: title,
-      content: content,
+      content: "",
     },
   })
+
+
   const { isSubmitting } = form.formState
 
   async function onSubmit(values: z.infer<typeof TickerEditValidation>) {
     values.image = uploadedImageUrl
+    values.content = JSON.stringify(blocks);
 
     try {
 
@@ -87,20 +92,19 @@ const EditForm = ({ id, content, title, image }: Props) => {
           <h1 className='flex justify-end text-sm text-neutral-400 opacity-50'>ID: {id}</h1>
       </div>
         <ImageUpload uploadedImageUrl={uploadedImageUrl} setUploadedImageUrl={setUploadedImageUrl} />
-      <FormField
-        control={form.control}
-        name="title"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Title</FormLabel>
-            <FormControl>
-              <Input placeholder={title} {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
         <FormField
+          control={form.control}
+          name="title"
+          render={({ field }) => (
+            <FormItem className="mt-2">
+              <FormControl>
+                <Input className="text-5xl text-neutral-400 bg-transparent font-bold" placeholder="Untitled Note" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        {/* <FormField
         control={form.control}
         name="content"
         render={({ field }) => (
@@ -112,7 +116,8 @@ const EditForm = ({ id, content, title, image }: Props) => {
             <FormMessage />
           </FormItem>
         )}
-      />
+      /> */}
+      <Editor editable={false} initialContent={content} onChange={(updatedBlocks) => setBlocks(updatedBlocks)} />
       <SubmitButton title="Save Changes" pending={isSubmitting} onClick={() => setActionType('save')} />
       <TrashDelete title='Delete Note' pending={isSubmitting}  onClick={() => setActionType('delete')} />
     </form>

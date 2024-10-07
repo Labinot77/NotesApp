@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { EditButton } from './Buttons/Buttons'
+import { JsonValue } from '@prisma/client/runtime/library'
+import Editor from '@/app/dashboard/new/Components/Editor'
 
 interface Props {
   id: string
@@ -23,9 +25,9 @@ const Note = ({ id, title, content, color, background, image, createdAt }: Props
   }
 
   return (
-<main key={id} className="p-1 w-full rounded-md bg-gray-800/30 flex flex-col shadow-2xl">
+<main key={id} className="p-1 w-full rounded-md bg-neutral-300 dark:bg-gray-800/30 flex flex-col shadow-2xl">
   <div className='w-full'>
-      <h2 className="text-lg font-semibold rounded-md p-1" style={{ backgroundColor: background, color: color }}>{title}</h2>
+      <h2 className="text-xl font-semibold p-1 text-primary">{title}</h2>
       {image ? (
         <div className='h-[15vh] relative'>
           <Image 
@@ -41,7 +43,8 @@ const Note = ({ id, title, content, color, background, image, createdAt }: Props
           />
         </div>
       ) : null }
-      <p className={`note-text ${isExpanded ? "expanded" : ""}`} onClick={toggleExpand}>{content}</p>
+      {/* <Editor initialContent={content}/> */}
+      {/* <p className={`note-text ${isExpanded ? "expanded" : ""}`} onClick={toggleExpand}>{JSON.parse(content)}</p> */}
       <div className='w-full h-[2px] bg-gray-700/50 rounded-full'/>
       <div className='flex justify-between items-center mt-1'>
         <small className="px-2 ">

@@ -3,24 +3,9 @@
 import React from "react";
 import { FaGithub } from "react-icons/fa";
 import { loginWithSocial } from "@/acitons/LoginSocial";
+import { FaGoogle } from 'react-icons/fa'
 
-const LoginGithub = () => {
-  // const onClick = async () => {
-  //   const res = await loginWithSocial("github")
-
-    // if (res?.error) {
-    //   toast({
-    //     title: "Login Error",
-    //     description: res.error,
-    //   })
-    // } else {
-    //   toast({
-    //     title: res.title,
-    //     description: res.description,
-    //   })
-    // }
-  // }
-  
+export const LoginGithub = () => {
   return (
     <div
       onClick={() => loginWithSocial("github")}
@@ -30,4 +15,12 @@ const LoginGithub = () => {
   );
 };
 
-export default LoginGithub;
+export const LoginGoogle = () => {  
+  return (
+    <div
+      onClick={() => loginWithSocial("google")}
+      className="w-full gap-4 hover:cursor-pointer h-12 bg-green-800 rounded-md p-4 flex justify-center items-center">
+      <FaGoogle size={25} className="text-white" />
+    </div>
+  )
+}

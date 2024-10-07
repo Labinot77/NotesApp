@@ -24,6 +24,7 @@ export async function CreateTicketData(values: z.infer<typeof TicketCreationVali
       image: values.image,
     }
   });
+
   return redirect("/dashboard");
 }
 

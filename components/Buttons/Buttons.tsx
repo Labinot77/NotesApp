@@ -66,23 +66,6 @@ export const TrashDelete = ({ title, pending, onClick}: Props) => {
     </>
   );
 }
-// export const TrashDelete = ({noteId, pending}: {noteId: string, pending?: boolean}) => {
-//   return (
-//     <>
-//       {pending ? (
-//         <Button variant={"destructive"} size="icon" disabled>
-//              <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-//         </Button>
-//       ) : (
-//         <Button variant={"destructive"} size="icon" type="submit" 
-//         onClick={() => deleteNote(noteId)}
-//         >
-//           <Trash className="h-4 w-4" />
-//         </Button>
-//       )}
-//     </>
-//   );
-// }
 
 export const RemoveImageButton = ({ event, classes }: { classes?: string, event: () => void }) => {
   return (
@@ -94,7 +77,6 @@ export const RemoveImageButton = ({ event, classes }: { classes?: string, event:
 
 
 
-// export const Logout = ({ pending }: { pending?: boolean }) => {
 export const Logout = () => {
   const {pending} = useFormStatus();
   return (
