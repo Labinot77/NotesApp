@@ -4,7 +4,6 @@ import Google from "next-auth/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "next-auth/providers/credentials";
 import { db } from "./db";
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { UserLoginValidation } from "./lib/validations/UserValidation";
 import { getUserByEmail } from "./lib/actions/UserActions";

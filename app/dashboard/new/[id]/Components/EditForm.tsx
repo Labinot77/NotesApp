@@ -98,25 +98,12 @@ const EditForm = ({ id, content, title, image }: Props) => {
           render={({ field }) => (
             <FormItem className="mt-2">
               <FormControl>
-                <Input className="text-5xl text-neutral-400 bg-transparent font-bold" placeholder="Untitled Note" {...field} />
+                <Input className="h-full text-4xl text-neutral-400 bg-transparent font-bold" placeholder="Untitled Note" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        {/* <FormField
-        control={form.control}
-        name="content"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>Content</FormLabel>
-            <FormControl>
-              <Textarea className='resize-none h-44' placeholder={content} {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      /> */}
       <Editor editable={false} initialContent={content} onChange={(updatedBlocks) => setBlocks(updatedBlocks)} />
       <SubmitButton title="Save Changes" pending={isSubmitting} onClick={() => setActionType('save')} />
       <TrashDelete title='Delete Note' pending={isSubmitting}  onClick={() => setActionType('delete')} />

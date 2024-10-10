@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { EditButton } from './Buttons/Buttons'
 import { JsonValue } from '@prisma/client/runtime/library'
 import Editor from '@/app/dashboard/new/Components/Editor'
+import { ImageModal } from '@/app/dashboard/components/ImageModal'
 
 interface Props {
   id: string
@@ -18,7 +19,7 @@ interface Props {
 
 const Note = ({ id, title, content, color, background, image, createdAt }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  // const [isZoomed, setIsZoomed] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded)
@@ -30,7 +31,9 @@ const Note = ({ id, title, content, color, background, image, createdAt }: Props
       <h2 className="text-xl font-semibold p-1 text-primary">{title}</h2>
       {image ? (
         <div className='h-[15vh] relative'>
+          <ImageModal src={image || ""} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
           <Image 
+            onClick={() => setIsModalOpen(true)}
             src={image} 
             alt='Note Image' 
             className='object-cover object-center rounded-md transition-opacity duration-200 opacity-0 p-1' 

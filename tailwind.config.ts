@@ -12,7 +12,10 @@ export default withUt({
   theme: {
   	extend: {
   		colors: {
-  			background: 'hsl(var(--background))',
+  			background: {
+					DEFAULT: 'hsl(var(--background-primary))',
+					foreground: 'hsl(var(--background))',
+				},
   			foreground: 'hsl(var(--foreground))',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
@@ -42,9 +45,9 @@ export default withUt({
   				DEFAULT: 'hsl(var(--destructive))',
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
-				boxShadow: {
-					'glow': '0 0 15px 5px rgba(255, 255, 0, 0.8)'
-				},
+  			boxShadow: {
+  				glow: '0 0 15px 5px rgba(255, 255, 0, 0.8)'
+  			},
   			border: 'hsl(var(--border))',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',

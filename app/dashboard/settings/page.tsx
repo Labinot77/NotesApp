@@ -5,6 +5,7 @@ import SettingsForm from './Components/SettingsForm'
 import { getUserData } from '@/lib/actions/UserActions'
 import Logout from '@/components/Logout'
 import { ModeToggle } from './Components/ModeToggle'
+import { wait } from '@/lib/Miscellaneous'
 
 const page = async () => {
   const session = await auth()
@@ -12,7 +13,6 @@ const page = async () => {
   if (!session?.user) redirect('/authentication/sign-in?callback/Url=/dashboard/settings')
     
     const data = await getUserData(session.user.id as string)
-    
   return (
     <main className='p-2 h-full'>
       <div className='w-full flex gap-5 justify-end'>

@@ -10,7 +10,7 @@ interface ImageUploadProps {
 const ImageUpload = ({ uploadedImageUrl, setUploadedImageUrl }: ImageUploadProps) => {
   return (
     <div
-      className={`h-[20vh] mb-2 relative bg-neutral-300 w-full rounded-md group`}
+      className={`h-[20vh] mb-2 relative bg-gray-500 dark:bg-neutral-300 w-full rounded-md group`}
     >
       <h1 className="lg:text-6xl text-4xl absolute left-[32%] top-[32%] text-neutral-400 opacity-35">Add an image</h1>
       {uploadedImageUrl && (
@@ -37,7 +37,7 @@ const ImageUpload = ({ uploadedImageUrl, setUploadedImageUrl }: ImageUploadProps
           alert(`Please try again ${error}`)
         }}
         endpoint="imageUploader"
-        className="absolute bottom-5 right-5 w-fit ut-allowed-content:hidden ut-button:bg-slate-200 ut-button:hover:bg-slate-300 ut-button:text-neutral-800 ut-uploading:opacity-100 ut-button:active:border-neutral-500 ut-button:transition-colors opacity-0 group-hover:opacity-100 duration-500 ut-button:w-[7rem] ut-button:h-[2rem] ut-button:text-sm"
+        className="absolute bottom-5 right-5 w-fit ut-allowed-content:hidden ut-uploading:cursor-not-allowed ut-button:bg-black hover:ut-button:text-black dark:hover:ut-button:bg-slate-300 ut-button:text-slate-200 dark:ut-button:bg-slate-200 ut-button:hover:bg-slate-300 dark:ut-button:text-neutral-800 ut-uploading:opacity-100 ut-button:active:border-neutral-500 ut-button:transition-colors opacity-0 group-hover:opacity-100 duration-500 ut-button:w-[7rem] ut-button:h-[2rem] ut-button:text-sm"
       />
     </div>
   )

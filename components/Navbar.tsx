@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <nav className='p-4 flex items-center justify-start rounded-t-3xl backdrop-blur-3xl'>
-        <p className='text-2xl font-bold text-white'>{currentPage?.name}</p>
+        <p className='text-2xl font-bold text-neutral-600 dark:text-white'>{currentPage?.name}</p>
     </nav>
   )
 }

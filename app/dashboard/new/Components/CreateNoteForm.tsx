@@ -81,7 +81,7 @@ const CreateNoteForm = () => {
           render={({ field }) => (
             <FormItem className="">
               <FormControl>
-                <Input className="text-4xl text-neutral-400 font-bold placeholder:text-neutral-700" placeholder="Untitled" {...field} /> 
+                <Input className="h-full text-4xl text-neutral-900 dark:text-neutral-500 font-bold placeholder:text-neutral-700" placeholder="Untitled" {...field} /> 
               </FormControl>
               <FormMessage />
             </FormItem>
