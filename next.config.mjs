@@ -4,9 +4,6 @@ const nextConfig = {
     domains: ["avatars.githubusercontent.com", "utfs.io", "lh3.googleusercontent.com"],
     unoptimized: true,
   },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
 };
 
 export default nextConfig;
