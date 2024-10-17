@@ -21,7 +21,7 @@ model User {
   image         String         @default("https://wallpapers.com/images/hd/basic-default-pfp-pxi77qv5o0zuz8j3.jpg")
   accounts      Account[]
   sessions      Session[]
-  role          UserRole?       @default(USER)
+  role          UserRole       @default(USER)
   // Optional for WebAuthn support
   Authenticator Authenticator[]
 

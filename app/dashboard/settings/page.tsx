@@ -11,15 +11,26 @@ const page = async () => {
   
   if (!session?.user) redirect('/authentication/sign-in?callback/Url=/dashboard/settings')
     
-    const data = await getUserData(session.user.id as string)
+  const data = await getUserData(session.user.id as string)
+
+  if (!data) {
+    return <h1>No data</h1>
+  }
+  
   return (
     <main className='p-2 h-full'>
       <div className='w-full flex gap-5 justify-end'>
         <ModeToggle />
         <Logout />
       </div>
-      {/* @ts-expect-error */}
-      <SettingsForm {...data} />
+      
+      <SettingsForm
+      id={data.id}
+      name={data.name}
+      email={data.email}
+      image={data.image as string}
+      role={data.role}
+       />
     </main>
 
   )
