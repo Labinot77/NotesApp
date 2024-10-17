@@ -18,7 +18,7 @@ const page = async () => {
         <ModeToggle />
         <Logout />
       </div>
-      {/* @ts-ignore  */}
+      {/* @ts-expect-error */}
       <SettingsForm {...data} />
     </main>
 
