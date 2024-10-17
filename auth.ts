@@ -7,10 +7,10 @@ import { db } from "./db";
 import bcrypt from "bcryptjs";
 import { UserLoginValidation } from "./lib/validations/UserValidation";
 import { getUserByEmail } from "./lib/actions/UserActions";
+import { PrismaClient } from "@prisma/client";
 
 export const { handlers: { GET, POST }, signIn, signOut, auth } = NextAuth({
-  // adapter: PrismaAdapter(db as PrismaClient),
-  adapter: PrismaAdapter(db),
+  adapter: PrismaAdapter(db as PrismaClient),
   session: {strategy: "jwt"},
   pages: {
     signIn: "/authentication/sign-in",
