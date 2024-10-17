@@ -5,7 +5,6 @@ import SettingsForm from './Components/SettingsForm'
 import { getUserData } from '@/lib/actions/UserActions'
 import Logout from '@/components/Logout'
 import { ModeToggle } from './Components/ModeToggle'
-import { wait } from '@/lib/Miscellaneous'
 
 const page = async () => {
   const session = await auth()

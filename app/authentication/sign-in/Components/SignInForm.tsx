@@ -10,7 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { login } from "@/acitons/login";
 import { toast } from "@/hooks/use-toast";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
   const form = useForm<z.infer<typeof UserLoginValidation>>({

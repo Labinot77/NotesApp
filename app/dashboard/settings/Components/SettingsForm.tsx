@@ -8,12 +8,10 @@ import { z } from "zod";
 import { SaveUserData } from "@/lib/actions/UserActions";
 import { toast } from "@/hooks/use-toast";
 import { UploadButton } from "@/utils/uploadthing";
-import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { SubmitButton } from "@/components/Buttons/Buttons";
-import { ModeToggle } from "./ModeToggle";
 
 interface Props {
   id: string;

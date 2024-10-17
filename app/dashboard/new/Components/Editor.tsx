@@ -12,10 +12,9 @@ import { useEffect, useState } from "react";
 interface Props {
   onChange?: (blocks: Block[]) => void;
   initialContent?: string;
-  editable?: boolean;
 }
 
-const Editor = ({ onChange, initialContent, editable }: Props) => {
+const Editor = ({ onChange, initialContent }: Props) => {
   const {resolvedTheme} = useTheme();
   
   const [blocks, setBlocks] = useState<Block[]>([]);

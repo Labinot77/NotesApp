@@ -2,7 +2,6 @@ import { auth } from '@/auth'
 import Note from '@/components/Note'
 import NoteRef from '@/components/NoteRef'
 import { FindUserTickets } from '@/lib/actions/TicketActions'
-import { Note as noteType } from '@prisma/client'
 import { redirect } from 'next/navigation'
 
 interface Props {

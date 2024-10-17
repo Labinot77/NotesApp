@@ -3,10 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { EditButton } from './Buttons/Buttons'
-import { JsonValue } from '@prisma/client/runtime/library'
-import Editor from '@/app/dashboard/new/Components/Editor'
 import { ImageModal } from '@/app/dashboard/components/ImageModal'
-import { Note as noteType } from '@prisma/client'
 
 interface Props {
   title: string

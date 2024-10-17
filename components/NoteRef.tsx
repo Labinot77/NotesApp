@@ -1,6 +1,5 @@
 "use client"
 
-import { Note } from "@prisma/client";
 import { useRef } from "react"
 
 const NoteRef = () => {

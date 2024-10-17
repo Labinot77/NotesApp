@@ -3,10 +3,8 @@
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
@@ -104,7 +102,7 @@ const EditForm = ({ id, content, title, image }: Props) => {
             </FormItem>
           )}
         />
-      <Editor editable={false} initialContent={content} onChange={(updatedBlocks) => setBlocks(updatedBlocks)} />
+      <Editor initialContent={content} onChange={(updatedBlocks) => setBlocks(updatedBlocks)} />
       <SubmitButton title="Save Changes" pending={isSubmitting} onClick={() => setActionType('save')} />
       <TrashDelete title='Delete Note' pending={isSubmitting}  onClick={() => setActionType('delete')} />
     </form>
