@@ -6,18 +6,18 @@ import { EditButton } from './Buttons/Buttons'
 import { JsonValue } from '@prisma/client/runtime/library'
 import Editor from '@/app/dashboard/new/Components/Editor'
 import { ImageModal } from '@/app/dashboard/components/ImageModal'
+import { Note as noteType } from '@prisma/client'
 
 interface Props {
-  id: string
   title: string
   content: string
-  color: string
-  background: string
   image: string | null
+  id: string
   createdAt: Date
 }
 
-const Note = ({ id, title, content, color, background, image, createdAt }: Props) => {
+
+const Note = ({ id, title, content, image, createdAt }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -34,9 +34,9 @@ const Note = ({ id, title, content, color, background, image, createdAt }: Props
           <ImageModal src={image || ""} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
           <Image 
             onClick={() => setIsModalOpen(true)}
-            src={image} 
+            src={image}
             alt='Note Image' 
-            className='object-cover object-center rounded-md transition-opacity duration-200 opacity-0 p-1' 
+            className='object-cover object-center rounded-md transition-opacity duration-200 opacity-0 p-1 cursor-pointer' 
             fill
             priority
             onLoad={(e) => {

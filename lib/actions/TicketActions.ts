@@ -18,9 +18,7 @@ export async function CreateTicketData(values: z.infer<typeof TicketCreationVali
     data: {
       userId: session.user?.id,
       title: values.title,
-      content: values.content,
-      color: values.color,
-      background: values.background,
+      content: values.content!,
       image: values.image,
     }
   });
@@ -45,8 +43,6 @@ export async function FindUserTickets(userId: string) {
           content: true,
           image: true,
           id: true,
-          color: true,
-          background: true,
           createdAt: true,
         },
         orderBy: {
