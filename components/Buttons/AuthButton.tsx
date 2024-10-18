@@ -2,10 +2,11 @@
 
 import React from "react";
 import { useFormStatus } from "react-dom";
+import { Button } from "../ui/button";
 
 const AuthButton = ({label, pending}: {label: string, pending: boolean}) => {
   return (
-    <button
+    <Button
       disabled={pending}
       type="submit"
       className={`${
@@ -13,7 +14,7 @@ const AuthButton = ({label, pending}: {label: string, pending: boolean}) => {
       } rounded-md w-full px-12 py-3 text-sm font-medium text-white`}
     >
       {pending ? "Loading..." : label}
-    </button>
+    </Button>
   );
 };
 
