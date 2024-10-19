@@ -14,7 +14,7 @@ const page = async () => {
   const data = await getUserData(session.user.id as string)
 
   if (!data) {
-    return <h1>No data</h1>
+    return redirect('/authentication/sign-in?callback/Url=/dashboard/settings')
   }
   
   return (
