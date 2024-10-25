@@ -1,12 +1,21 @@
 
 import { auth } from "@/auth";
+import PasswordPage from "@/components/PasswordPage";
 import { Button } from "@/components/ui/button";
+import { cookies } from "next/headers";
 import Link from "next/link";
 
 export default async function Home() {
   const session = await auth()
+  const cookieStore = cookies();
+  
+  if (!cookieStore.get("auth-token")) {
+    return (
+      <PasswordPage />
+    )
+  }
 
-
+  
   return (
     <section className="flex items-center justify-center h-screen body-background">
     <div className="relative items-center w-full px-5 py-12 mx-auto z-10 lg:px-16 max-w-7xl md:px-12">

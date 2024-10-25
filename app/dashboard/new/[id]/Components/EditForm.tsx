@@ -49,7 +49,6 @@ const EditForm = ({ id, content, title, image }: Props) => {
     values.content = JSON.stringify(blocks);
 
     try {
-
       if (actionType === 'save') {
       const formData = {
         ...values,
