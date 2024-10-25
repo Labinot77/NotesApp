@@ -19,9 +19,7 @@ import { SubmitButton } from "./Buttons/Buttons"
 import { toast } from "@/hooks/use-toast"
 
 const formSchema = z.object({
-  password: z.string().min(2, {
-    message: "Password must be at least 2 characters.",
-  }),
+  password: z.string().min(2),
 })
 
 const PasswordPage = () => {
@@ -42,6 +40,7 @@ const PasswordPage = () => {
 
       toast({
         title: "Success",
+        description: "You gained access to the app.",
       })
     } else {
       form.reset();
