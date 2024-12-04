@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { EditButton } from './Buttons/Buttons'
 import { ImageModal } from '@/app/dashboard/components/ImageModal'
 
 interface Props {
@@ -54,7 +53,7 @@ const Note = ({ id, title, content, image, createdAt }: Props) => {
             month: 'long',
           })}
         </small>
-        <EditButton title='Edit' pending={false} id={id} />
+        {/* <EditButton title='Edit' pending={false} id={id} /> */}
       </div>
   </div>
 </main>

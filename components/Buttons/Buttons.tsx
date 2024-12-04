@@ -12,6 +12,7 @@ import { useFormStatus } from "react-dom"
 interface Props {
   title: string;
   pending: boolean;
+  disabled: boolean;
   onClick?: () => void 
 }
 
@@ -19,44 +20,16 @@ interface Props {
 export const SubmitButton = ({ title, pending, onClick }: Props ) => {
   return (
     <>  
-    {pending ? (
-          <Button disabled>
-          <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-          Saving
-        </Button>
-    ): (
-      <Button type="submit" onClick={onClick}>{title}</Button>
-    )}
+    {pending ? <Button disabled>{title}</Button> : <Button type="submit" onClick={onClick}>{title}</Button>}
     </>
-  )
-}
+  )}
 
-export const EditButton = ({ title, pending, id }: { title: string; pending: boolean; id: string }) => {
-  // const {pending} = useFormStatus()
-  return (
-    <>  
-    {pending ? (
-          <Button disabled>
-          <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
-          Saving
-        </Button>
-    ): (
-      <Link href={`/dashboard/new/${id}`}>
-        <Button>
-         <PenLine size={15}/>
-        </Button>
-        </Link>
-      )}
-    </>
-  )
-}
-
-export const TrashDelete = ({ title, pending, onClick}: Props) => {
+export const TrashDelete = ({ title, disabled, pending, onClick}: Props) => {
   return (
     <>
       {pending ? (
         <Button variant={"destructive"} size="icon" disabled>
-             <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />
+          <Trash className="h-4 w-4" />
         </Button>
       ) : (
         <Button variant={"destructive"} type="submit" onClick={onClick}>

@@ -12,10 +12,7 @@ export default withUt({
   theme: {
   	extend: {
   		colors: {
-  			background: {
-					DEFAULT: 'hsl(var(--background-primary))',
-					foreground: 'hsl(var(--background))',
-				},
+  			background: 'hsl(var(--background))',
   			foreground: 'hsl(var(--foreground))',
   			card: {
   				DEFAULT: 'hsl(var(--card))',

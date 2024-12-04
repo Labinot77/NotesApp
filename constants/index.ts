@@ -2,7 +2,7 @@ import { Home, NotebookIcon, Settings } from "lucide-react";
 
 export const FooterLinks = [
   {
-    name: 'Home',
+    name: '',
     href: '/dashboard',
     icon: Home,
   },

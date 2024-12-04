@@ -55,6 +55,35 @@ export async function FindUserTickets(userId: string) {
   return data;
 }
 
+// export async function FindUserTickets(userId: string) {
+//   const session = await auth();
+//   if (!session?.user?.id) {
+//     throw new Error("Not authorized");
+//   }
+
+//   const data = await db.user.findMany({
+//     where: {
+//       userId: userId,
+//       createdAt: {
+//         gte: startOfMonth,
+//         lte: endOfMonth,
+//       },
+//     },
+//     select: {
+//       id: true,
+//       title: true,
+//       content: true,
+//       image: true,
+//       createdAt: true,
+//     },
+//     orderBy: {
+//       createdAt: 'asc', // Sort by created date
+//     },
+//   });
+
+//   return data;
+// }
+
 export async function EditUserNote(NoteId: string) {
   try {
     const data = await db.note.findUnique({
